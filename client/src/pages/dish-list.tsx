@@ -18,7 +18,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 //handle delete country
 //handle save country
 
-//
+// Mock data (replace with actual data from countries.js)
+const countriesData = [
+  { id: 1, name: 'Italy', dishes: ['Pizza', 'Pasta', 'Gelato'], flag: '🇮🇹', defaultNote: 'Non sono ancora stato in Italia' },
+  { id: 2, name: 'Japan', dishes: ['Sushi', 'Ramen', 'Tempura'], flag: '🇯🇵', defaultNote: '私はまだ日本に行ったことがありません' },
+  { id: 3, name: 'Mexico', dishes: ['Tacos', 'Guacamole', 'Enchiladas'], flag: '🇲🇽', defaultNote: 'Todavía no he estado en México' },
+]
+
+// Mock user data (replace with actual user data when ready)
+const initialUserCountries = [
+  { id: 1, name: 'Italy', dishes: ['Pizza', 'Pasta'], notes: 'Love the cuisine!', flag: '🇮🇹' },
+]
+
 
 export function DishListComponent() {
     const [userCountries, setUserCountries] = useState(initialUserCountries)
