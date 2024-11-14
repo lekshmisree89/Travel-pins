@@ -26,8 +26,34 @@ interface AddUserArgs {
 
 }
 
+interface AddUserArgs {
+
+  username: string;
+  email: string;
+  password: string;
+
+}
+
+interface UserArgs {
+  email: string;
+  password: string;
+}
+
+
+
 export const resolvers = {
   Query: {
+    me: async (_parent: any, _args: unknown, context: Context) => {
+      if (context.user) {
+          const userData = await User.findOne({ _id: new mongoose.Types.ObjectId(context.user._id) }) // Cast _id to ObjectId
+              .select('-__v -password')
+              .populate('savedBooks');
+
+          return userData;
+      }
+      throw new AuthenticationError('Not logged in');
+  },
+},
     
 
 
