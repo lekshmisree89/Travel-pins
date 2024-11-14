@@ -2,14 +2,14 @@
 
 import { useState } from 'react'
 import { Plus, Edit2, Check, X, Utensils, Book, LogOut } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { Button } from '../components/button'
+import { Card, CardContent, CardHeader, CardTitle } from '../components/card'
+import { Input } from '../components/input'
+import { Textarea } from '../components/textarea'
+import { Checkbox } from '../components/checkbox'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../components/dialog'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../components/tooltip'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/table'
 
 //TODO: add the dish list component
 //export default function DishList()
