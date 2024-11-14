@@ -6,11 +6,7 @@ export const GET_USERS = gql`
       id
       username
       email
-      country {
-        dishes {
-          dishname
-          
-        }
+     
     }
   }
 `;
