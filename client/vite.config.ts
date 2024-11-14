@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import typeDefs from './schema/typeDefs';
-import resolvers from './schema/resolvers';
+import resolvers from './schema/resolvers.ts';
 
 dotenv.config();
 
