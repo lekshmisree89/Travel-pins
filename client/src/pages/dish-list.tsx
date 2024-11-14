@@ -93,6 +93,133 @@ export function DishListComponent() {
 
 
 //todo: country card component
+function CountryCard({ country, isEditing, onEdit, onSave }) {
+    const [editedCountry, setEditedCountry] = useState(country)
+  
+    const handleToggleDish = (dish) => {
+      const updatedDishes = editedCountry.dishes.includes(dish)
+        ? editedCountry.dishes.filter(d => d !== dish)
+        : [...editedCountry.dishes, dish]
+      setEditedCountry({ ...editedCountry, dishes: updatedDishes })
+    }
+  
+    const handleSave = () => {
+      onSave(editedCountry)
+    }
+  
+    const allDishes = countriesData.find(c => c.id === country.id)?.dishes || []
+  
+    if (isEditing) {
+      return (
+        <Card className="overflow-hidden transition-shadow hover:shadow-lg">
+          <CardHeader className="bg-primary/10 flex flex-row items-center justify-between p-4">
+            <CardTitle className="text-2xl font-bold">{country.flag} {country.name}</CardTitle>
+            <div className="flex space-x-2">
+              <Button variant="outline" size="sm" onClick={() => onEdit(null)}>
+                <X className="h-4 w-4" />
+              </Button>
+              <Button size="sm" onClick={handleSave}>
+                <Check className="h-4 w-4" />
+              </Button>
+            </div>
+          </CardHeader>
+          <CardContent className="p-4 space-y-4">
+            <div className="bg-white p-4 rounded-lg shadow-sm space-y-2">
+              <h3 className="font-semibold flex items-center">
+                <Utensils className="mr-2 h-4 w-4" /> Dishes
+              </h3>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Menu</TableHead>
+                    <TableHead>Eaten</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {allDishes.map(dish => (
+                    <TableRow key={dish}>
+                      <TableCell>{dish}</TableCell>
+                      <TableCell>
+                        <Checkbox
+                          id={`${country.id}-${dish}`}
+                          checked={editedCountry.dishes.includes(dish)}
+                          onCheckedChange={() => handleToggleDish(dish)}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+            <div className="bg-white p-4 rounded-lg shadow-sm">
+              <h3 className="font-semibold flex items-center mb-2">
+                <Book className="mr-2 h-4 w-4" /> Field Notes
+              </h3>
+              <Textarea
+                placeholder="Add your field notes here..."
+                value={editedCountry.notes}
+                onChange={(e) => setEditedCountry({ ...editedCountry, notes: e.target.value })}
+                className="w-full"
+              />
+            </div>
+          </CardContent>
+        </Card>
+      )
+    }
+  
+    return (
+      <Card className="overflow-hidden transition-shadow hover:shadow-lg">
+        <CardHeader className="bg-primary/10 flex flex-row items-center justify-between p-4">
+          <CardTitle className="text-2xl font-bold">{country.flag} {country.name}</CardTitle>
+          <Button variant="outline" size="sm" onClick={() => onEdit(country)}>
+            <Edit2 className="h-4 w-4" />
+          </Button>
+        </CardHeader>
+        <CardContent className="p-4 space-y-4">
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h3 className="font-semibold flex items-center mb-2">
+              <Utensils className="mr-2 h-4 w-4" /> Dishes
+            </h3>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Menu</TableHead>
+                  <TableHead>Eaten</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {allDishes.map(dish => (
+                  <TableRow key={dish}>
+                    <TableCell>{dish}</TableCell>
+                    <TableCell>
+                      {country.dishes.includes(dish) ? <Check className="h-4 w-4 text-green-500" /> : null}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h3 className="font-semibold flex items-center mb-2">
+              <Book className="mr-2 h-4 w-4" /> Field Notes
+            </h3>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <p className="text-sm text-gray-600 truncate">
+                    {country.notes || countriesData.find(c => c.id === country.id)?.defaultNote || "No field notes added yet."}
+                  </p>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="max-w-xs">{country.notes || countriesData.find(c => c.id === country.id)?.defaultNote || "No field notes added yet."}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          </div>
+        </CardContent>
+      </Card>
+    )
+  }
 
 //todo: addcountryform slash button
 
