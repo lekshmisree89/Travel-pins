@@ -1,26 +1,18 @@
+import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import App from './App';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
-import App from './App.jsx'
-//import SearchBooks from './pages/SearchBooks'
-//import SavedBooks from './pages/SavedBooks'
+const client = new ApolloClient({
+  uri: process.env.REACT_APP_GRAPHQL_URI || 'http://localhost:4000/graphql',
+  cache: new InMemoryCache(),
+});
 
-
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-
-    errorElement: <h1 className='display-2'>Wrong page!</h1>,//
-    
-    
-    
-      
-    
-  }
-])
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />
-)
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+root.render(
+  <ApolloProvider client={client}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </ApolloProvider>
+);

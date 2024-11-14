@@ -7,6 +7,8 @@ import { ApolloServer } from '@apollo/server';
 import { expressMiddleware } from '@apollo/server/express4';
 //import { typeDefs, resolvers } from './schemas/index.js';
 import { authenticateToken } from './services/auth.js';
+import typeDefs from './schemas/typeDefs';
+import resolvers from './schemas/resolvers';
 
 // Load environment variables from .env file
 dotenv.config();
