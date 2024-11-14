@@ -228,7 +228,43 @@ function CountryCard({ country, isEditing, onEdit, onSave }) {
   }
 
 //todo: addcountryform slash button
+function AddCountryForm({ countries, onAdd }) {
+  const [selectedCountry, setSelectedCountry] = useState('')
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const country = countries.find(c => c.name === selectedCountry)
+    if (country) {
+      onAdd(country)
+    }
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div>
+        <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+          Select a country
+        </label>
+        <select
+          id="country"
+          value={selectedCountry}
+          onChange={(e) => setSelectedCountry(e.target.value)}
+          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
+        >
+          <option value="">Choose a country</option>
+          {countries.map(country => (
+            <option key={country.id} value={country.name}>
+              {country.flag} {country.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      <Button type="submit" disabled={!selectedCountry}>
+        Add Country
+      </Button>
+    </form>
+  )
+}
 
 
 
