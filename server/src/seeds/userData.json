@@ -1,0 +1,14 @@
+[
+  {
+    "firstName": "Ryan",
+    "lastName": "Merlini",
+    "email": "rdmerlini@gmail.com",
+    "password": "password"
+  },
+  {
+    "firstName": "Spongebob",
+    "lastName": "Squarepants",
+    "email": "spongebob@gmail.com",
+    "password": "password"
+  }
+]
