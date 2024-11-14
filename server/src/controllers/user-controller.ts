@@ -54,7 +54,10 @@ const userController = {
       console.error(error);
       return res.status(500).json({ error: 'Failed to update user' });
     }
-  }
+  },
+
+  // Delete a user by ID
+  
 };
 
 
