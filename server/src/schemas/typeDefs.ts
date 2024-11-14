@@ -3,14 +3,10 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
-    password: String
+  
   }
 
-  input UserInput {
-    username: String!
-    email: String!
-    password: String!
-  }
+
   
   type Auth {
     token: ID!
@@ -39,7 +35,7 @@ const typeDefs = `
     }
 
   type Query {
-    users: [User]
+     me: User 
     user(username: String!): User
     me: User
     countries: [Country]
