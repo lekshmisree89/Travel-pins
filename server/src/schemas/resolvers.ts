@@ -53,7 +53,8 @@ export const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
   },
-},
+  },
+
     
 
 
@@ -67,41 +68,41 @@ export const resolvers = {
 
 
   Mutation: {
-    // Create a new user
-    addUser: async (_: any, { name, email }: { name: string; email: string }) => {
-      const newUser = new User({ name, email });
-      await newUser.save();
-      return newUser;
-    },
-    // login a user
-    login: async (_parent: any, { email, password }: LoginUserArgs) => {
-      // Find a user with the provided email
+
+    login: async (_parent: any, { email, password }: UserArgs) => {
       const user = await User.findOne({ email });
-    
-      // If no user is found, throw an AuthenticationError
       if (!user) {
-        throw new AuthenticationError('Could not authenticate user.');
+          throw new AuthenticationError('Incorrect credentials');
       }
+      const correctPw = await user.isCorrectPassword(password);
+      if (!correctPw) {
+          throw new AuthenticationError('Incorrect credentials');
+      }
+      const token = signToken(user.username, user.email, user._id);
+      return { token, user };
+  },
+  addUser: async (_parent: any, args: AddUserArgs) => {
+      const user = await User.create(args);
+      const token = signToken(user.username, user.email, user._id);
+      return { token, user };
+  },
+
+  }
+};
+
+
+ 
+
     
-      // Check if the provided password is correct
-      // const correctPw = await user.isCorrectPassword(password);
-    
-      // // If the password is incorrect, throw an AuthenticationError
-      // if (!correctPw) {
-      //   throw new AuthenticationError('Could not authenticate user.');
-      // }
-    
-      // Sign a token with the user's information
-      const token = signToken(user.name, user.email, user._id);
-    
-//       // Return the token and the user
-//       return { token, user };
-//     },
+
+
+
 //     // Create a new country
 //     addCountry: async (_: any, { name, code }: { name: string; code: string }) => {
 //       const newCountry = new Country({ name, code });
 //       await newCountry.save();
 //       return newCountry;
-//   },
+//     },
+//   
   
-// }};
+export default resolvers;
