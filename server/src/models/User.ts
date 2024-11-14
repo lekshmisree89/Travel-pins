@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
 
-import Book from './Book.js'; // Ensure this path is correct
+//import Book from './Book.js'; // Ensure this path is correct
 
 
 export interface User extends mongoose.Document {
@@ -37,7 +37,7 @@ const userSchema = new Schema<User>(
       required: true,
     },
     // set savedBooks to be an array of data that adheres to the bookSchema
-    savedBooks:[Book],
+    //savedBooks:[Book],
   },
   // set this to use virtual below
   {
