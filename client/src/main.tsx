@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from './pages/Home.tsx';
-
+import Profile from './components/Profile.tsx';
 
 import App from './App.jsx'
 
@@ -20,6 +20,15 @@ const router = createBrowserRouter([
         index: true,
         element: <Home />
       },
+      {
+        path: '/profiles/:username',
+        element: <Profile />
+      },
+      { 
+        path: '/me',
+        element: <Profile />
+      }
+
  
       ]
   }

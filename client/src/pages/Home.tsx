@@ -6,7 +6,7 @@ const Home = () => {
     const user = data?.me || null;
 
     if (loading) return <p>Loading...</p>;
-   
+  
 
     return (
         <main>
@@ -19,6 +19,7 @@ const Home = () => {
                                 <div>
                                     <p className="username">Username: {user.username}</p>
                                     <p>Email: {user.email}</p>
+                                    <h4>Welcome back, {user.username}! Explore and enjoy!</h4>
                                 </div>
                             ) : (
                                 <h4>You need to be logged in TO EXPLORE.</h4>
