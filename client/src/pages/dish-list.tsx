@@ -2,6 +2,12 @@
 
 import { useState } from 'react'
 import { Plus, Edit2, Check, X, Utensils, Book, LogOut } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
+import { Table, TableHeader, TableBody, TableRow, TableCell } from '@/components/ui/table'
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { Checkbox } from '@/components/ui/checkbox'
+import { Textarea } from '@/components/ui/textarea'
 
 //TODO: add the dish list component
 //export default function DishList()
