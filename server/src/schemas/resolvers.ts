@@ -1,6 +1,7 @@
 import { User, Country } from '../models/index.js';
 
 // interface for arguments passed to the mutations
+interface 
 
 export const resolvers = {
   Query: {
