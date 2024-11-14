@@ -7,7 +7,7 @@ const router = Router();
 router.post('/signup', userController.createUser);
 
 // Route to get all users
-router.get('/users', userController.getAllUsers);
+router.get('/all', userController.getAllUsers);
 
 // Route to get a user by ID
 router.get('/:id', userController.getUserById);
@@ -19,6 +19,6 @@ router.put('/:id', userController.updateUser);
 router.delete('/:id', userController.deleteUser);
 
 // countries
-// Route to create a new user
+// Route to create a new country
 
 export default router;
