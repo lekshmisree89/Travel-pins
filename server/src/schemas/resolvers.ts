@@ -1,13 +1,22 @@
 import { User, Country } from '../models/index.js';
 
 // interface for arguments passed to the mutations
-interface 
 
 export const resolvers = {
   Query: {
     // Get all users and countries
     users: async () => await User.find(),
-    country: async () => await Country.find()
+    countries: async () => await Country.find(),
+    // get user by ID
+    // user: async (_: any, { userId }: { userId: string }) => {
+    //   return await
+    //   User.findById(userId);
+    // },
+    // get country by ID
+    country: async (_: any, { countryId }: { countryId: string }) => {
+      return await Country.findById(countryId);
+    }
+
   },
   Mutation: {
     // Create a new user
