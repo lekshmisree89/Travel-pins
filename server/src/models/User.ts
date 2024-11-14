@@ -1,8 +1,5 @@
 import { Schema, model} from 'mongoose';
 import bcrypt from 'bcrypt';
-
-// import schema from Book.js
-
 import mongoose from 'mongoose';
 
 

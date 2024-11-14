@@ -47,6 +47,8 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
 
+
+    
     addCountry(input: CountryInput!): Country
     updateCountry(countryId: ID!, input: CountryInput!): Country
     deleteCountry(countryId: ID!): Country
