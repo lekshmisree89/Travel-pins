@@ -15,6 +15,7 @@ export interface User extends mongoose.Document {
   username: string;
   email: string;
   password: string;
+  isCorrectPassword(password: string): Promise<boolean>;
  
 
 }
