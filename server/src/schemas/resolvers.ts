@@ -1,6 +1,6 @@
-import { User } from '../models/User';
+import { User } from '../models';
 
-const resolvers = {
+export const resolvers = {
   Query: {
     users: async () => await User.find(),
   },
@@ -13,4 +13,4 @@ const resolvers = {
   },
 };
 
-export default resolvers;
+

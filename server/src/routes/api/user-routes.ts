@@ -1,20 +1,18 @@
-import express from 'express';
-const router = express.Router();
-import {
-  
-  login,
-} from '../../controllers/user-controller.js';
+import { Router } from 'express';
+import userController from '../../controllers/user-controller';
 
-// import middleware
-import { authenticateToken } from '../../services/auth.js';
+const router = Router();
 
-// put authMiddleware anywhere we need to send a token for verification of user
-//router.route('/').post(createUser).put(authenticateToken, saveBook);
+// Route to create a new user
+router.post('/create', userController.createUser);
 
-router.route('/login').post(login);
+// Route to get all users
+router.get('/all', userController.getAllUsers);
 
-router.route('/me').get(authenticateToken, getSingleUser);
+// Route to get a user by ID
+router.get('/:id', userController.getUserById);
 
-//router.route('/books/:bookId').delete(authenticateToken, deleteBook);
+// Route to update a user by ID
+router.put('/:id', userController.updateUser);
 
 export default router;
