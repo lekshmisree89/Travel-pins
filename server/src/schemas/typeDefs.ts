@@ -37,6 +37,8 @@ const typeDefs = `
   type Query {
     me: User
  
+
+    
     countries: [Country]
     country(countryId: ID!): Country
     dishes: [Dishes]
