@@ -1,10 +1,14 @@
 import { User, Country } from '../models/index.js';
-import { AuthenticationError } from 'apollo-server-express'; // laxmi to check this import
+import { signToken, AuthenticationError } from '../services/auth.js'; // laxmi to check this import
 
 // interface for arguments passed to the mutations
 interface LoginUserArgs {
   email: string;
   password: string;
+}
+
+interface UserArgs {
+  username: string;
 }
 
 export const resolvers = {
@@ -51,15 +55,15 @@ export const resolvers = {
       }
     
       // Check if the provided password is correct
-      const correctPw = await user.isCorrectPassword(password);
+      // const correctPw = await user.isCorrectPassword(password);
     
-      // If the password is incorrect, throw an AuthenticationError
-      if (!correctPw) {
-        throw new AuthenticationError('Could not authenticate user.');
-      }
+      // // If the password is incorrect, throw an AuthenticationError
+      // if (!correctPw) {
+      //   throw new AuthenticationError('Could not authenticate user.');
+      // }
     
       // Sign a token with the user's information
-      const token = signToken(user.username, user.email, user._id);
+      const token = signToken(user.name, user.email, user._id);
     
       // Return the token and the user
       return { token, user };
@@ -70,5 +74,5 @@ export const resolvers = {
       await newCountry.save();
       return newCountry;
   },
-  // Update a user by ID
+  
 }};
