@@ -1,13 +1,11 @@
 [
   {
-    "firstName": "Ryan",
-    "lastName": "Merlini",
+   "name" :"Merlini",
     "email": "rdmerlini@gmail.com",
     "password": "password"
   },
   {
-    "firstName": "Spongebob",
-    "lastName": "Squarepants",
+   "name" :"Spongebob",
     "email": "spongebob@gmail.com",
     "password": "password"
   }

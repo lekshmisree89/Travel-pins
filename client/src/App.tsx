@@ -40,7 +40,7 @@ function App() {
     <ApolloProvider client={client}>
       <div>
 <AppNavbar />
-        <h1>Welcome  to travel-pins</h1>
+      
         <Outlet />
       </div>
     </ApolloProvider>
