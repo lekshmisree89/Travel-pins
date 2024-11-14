@@ -54,8 +54,20 @@ const userController = {
       console.error(error);
       return res.status(500).json({ error: 'Failed to update user' });
     }
+  },
+
+  // Delete a user by ID
+  async deleteUser(req: Request, res: Response): Promise<Response> {
+    try {
+      const user = await User.findByIdAndDelete(req.params.id);
+      if (!user) return res.status(404).json({ error: 'User not found' });
+      return res.status(200).json({ message: 'User deleted successfully', user });
+    }
+    catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Failed to delete user' });
   }
-};
+},
 
 
 export default userController;

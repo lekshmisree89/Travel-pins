@@ -4,10 +4,7 @@ const typeDefs = `
     username: String
     email: String
     password: String
-    
- 
-
-  
+  }
 
   input UserInput {
     username: String!
@@ -20,15 +17,46 @@ const typeDefs = `
     user: User
   }
 
+  type Country {
+    _id: ID
+    name: String
+    dishes: [Dishes]
+    notes: String
+    }
+
+  type Dishes {
+    _id: ID
+    name: String
+    }
+
+    input DishesInput {
+    name: String!
+    }
+  
+  input CountryInput {
+    name: String!
+    notes: String
+    }
+
   type Query {
     users: [User]
     user(username: String!): User
     me: User
+    countries: [Country]
+    country(countryId: ID!): Country
+    dishes: [Dishes]
+    dish(dishId: ID!): Dishes
   }
 
   type Mutation {
     addUser(input: UserInput!): Auth
     login(email: String!, password: String!): Auth
+    addCountry(input: CountryInput!): Country
+    updateCountry(countryId: ID!, input: CountryInput!): Country
+    deleteCountry(countryId: ID!): Country
+    addDishes(countryId: ID!, input: DishesInput!): Country
+    updateDishes(countryId: ID!, input: DishesInput!): Country
+    deleteDishes(dishId: ID!, countryID: ID!): Country
   }
 `;
 
