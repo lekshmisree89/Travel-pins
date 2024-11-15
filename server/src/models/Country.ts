@@ -21,7 +21,7 @@ const dishSchema: Schema = new Schema({
   timestamps: true },
 );
 
-const Dishes = model<IDishes>('Dishes', dishSchema);
+model<IDishes>('Dishes', dishSchema);
 
 const countrySchema: Schema = new Schema({
     name: { type: String, required: true },
