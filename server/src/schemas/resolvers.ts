@@ -115,8 +115,15 @@ export const resolvers = {
       return { token, user };
   },
   // Add a country
-  addCountry: async (_: any, { input }: AddCountryArgs) => {
-    return await Country.create(input);
+  addCountry: async (_: any, { input }: AddCountryArgs, context: any) => {
+    if (context.user) {
+      const newCountry = await Country.create({...input});
+      await User.findOneAndUpdate(
+        {_id: context.user._id}, 
+        { $addToSet: { countries: newCountry._id } });
+      return newCountry;
+    }
+    throw new AuthenticationError('You need to be logged in to perform this action');
   },
   // Update a country
   updateCountry: async (_: any, { countryId, input }: { countryId: string; input: AddCountryArgs['input'] }) => {
