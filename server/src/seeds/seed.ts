@@ -2,6 +2,7 @@ import db from '../config/connection.js';
 import { User, Country } from '../models/index.js';
 import userSeeds from './userData.json' with { type: "json" };
 import countrySeeds from './countryData.json' with { type: "json" };
+// import dishSeeds from './dishData.json' with { type: "json" };
 import cleanDB from './cleanDB.js';
 
 const seedDatabase = async (): Promise<void> => {
@@ -11,6 +12,7 @@ const seedDatabase = async (): Promise<void> => {
 
     await User.insertMany(userSeeds);
     await Country.insertMany(countrySeeds);
+    // await Dishes.insertMany(dishSeeds);
 
     console.log('Seeding completed successfully!');
     process.exit(0);
