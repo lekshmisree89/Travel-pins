@@ -122,9 +122,9 @@ export const resolvers = {
     return await Country.findByIdAndUpdate (countryId, input, { new: true });
   },
   // Delete a country
-  deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
-    if (context.user) {
-      const country = await Country.findByIdAndDelete(countryId);
+deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
+  if (context.user) {
+    const country = await Country.findByIdAndDelete(countryId);
     if (!country) {
       throw new Error('No country found');
     }
@@ -134,6 +134,7 @@ export const resolvers = {
     
     return country;
   }
+  throw AuthenticationError;
 },
   // Add a dish to a country
   addDishes: async (_: any, { countryId, name }: AddDishesArgs, context: any) => {
