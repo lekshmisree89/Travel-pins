@@ -50,6 +50,14 @@ interface AddDishesArgs {
   name: string;
 }
 
+interface RemoveCountryArgs {
+  countryId: string;
+}
+
+interface RemoveDishesArgs {
+  dishId: string;
+  countryId: string;
+}
 
 
 export const resolvers = {
