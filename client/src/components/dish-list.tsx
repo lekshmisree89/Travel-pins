@@ -1,7 +1,5 @@
-'use client'
-
 import { useState } from 'react'
-import { Plus, Edit2, Check, X, Utensils, Book, LogOut } from 'lucide-react'
+import { Plus, Edit2, Check, X, Utensils, Book, LogOut, Trash2 } from 'lucide-react'
 import { Button } from '../components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Textarea } from '../components/ui/textarea'
@@ -9,8 +7,8 @@ import { Checkbox } from '../components/ui/checkbox'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '../components/ui/dialog'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../components/ui/tooltip'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table'
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "../components/ui/alert-dialog"
 
-// Define types for our data structures
 type Dish = string;
 
 interface Country {
@@ -25,14 +23,12 @@ interface UserCountry extends Country {
   notes: string;
 }
 
-// Mock data (replace with actual data from countries.js)
 const countriesData: Country[] = [
   { id: 1, name: 'Italy', dishes: ['Pizza', 'Pasta', 'Gelato'], flag: '🇮🇹', defaultNote: 'Non sono ancora stato in Italia' },
   { id: 2, name: 'Japan', dishes: ['Sushi', 'Ramen', 'Tempura'], flag: '🇯🇵', defaultNote: '私はまだ日本に行ったことがありません' },
   { id: 3, name: 'Mexico', dishes: ['Tacos', 'Guacamole', 'Enchiladas'], flag: '🇲🇽', defaultNote: 'Todavía no he estado en México' },
 ]
 
-// Mock user data (replace with actual user data management)
 const initialUserCountries: UserCountry[] = [
   { id: 1, name: 'Italy', dishes: ['Pizza', 'Pasta'], notes: 'Love the cuisine!', flag: '🇮🇹', defaultNote: '' },
 ]
@@ -52,6 +48,11 @@ export function DishListComponent() {
 
   const handleSaveCountry = (editedCountry: UserCountry) => {
     setUserCountries(userCountries.map(c => c.id === editedCountry.id ? editedCountry : c))
+    setEditingCountry(null)
+  }
+
+  const handleDeleteCountry = (countryId: number) => {
+    setUserCountries(userCountries.filter(c => c.id !== countryId))
     setEditingCountry(null)
   }
 
@@ -103,6 +104,7 @@ export function DishListComponent() {
                 isEditing={editingCountry?.id === country.id}
                 onEdit={() => handleEditCountry(country)}
                 onSave={handleSaveCountry}
+                onDelete={handleDeleteCountry}
               />
             ))}
           </div>
@@ -117,9 +119,10 @@ interface CountryCardProps {
   isEditing: boolean;
   onEdit: () => void;
   onSave: (editedCountry: UserCountry) => void;
+  onDelete: (countryId: number) => void;
 }
 
-function CountryCard({ country, isEditing, onEdit, onSave }: CountryCardProps) {
+function CountryCard({ country, isEditing, onEdit, onSave, onDelete }: CountryCardProps) {
   const [editedCountry, setEditedCountry] = useState<UserCountry>(country)
 
   const handleToggleDish = (dish: Dish) => {
@@ -141,12 +144,34 @@ function CountryCard({ country, isEditing, onEdit, onSave }: CountryCardProps) {
         <CardHeader className="bg-primary/10 flex flex-row items-center justify-between p-4">
           <CardTitle className="text-2xl font-bold">{country.flag} {country.name}</CardTitle>
           <div className="flex space-x-2">
-            <Button variant="outline" size="sm" onClick={() => onEdit()}>
+            <Button variant="outline" size="sm" onClick={() => {
+              setEditedCountry(country);
+              onEdit();
+            }}>
               <X className="h-4 w-4" />
             </Button>
             <Button size="sm" onClick={handleSave}>
               <Check className="h-4 w-4" />
             </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="outline" size="sm" className="text-red-500 hover:text-red-700 hover:bg-red-50">
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete the country and all its associated data.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={() => onDelete(country.id)}>Delete</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
         </CardHeader>
         <CardContent className="p-4 space-y-4">
