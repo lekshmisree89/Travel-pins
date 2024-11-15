@@ -1,27 +1,20 @@
-//import { Country } from '../models/index.js';
-
 import { signToken, AuthenticationError } from '../services/auth.js'; // laxmi to check this import
 import mongoose from 'mongoose';
-import {User }from '../models/index.js'; // Add missing import
-// interface for arguments passed to the mutations
+import { User, Country } from '../models/index.js'; // Add missing import
 
+// interface for arguments passed to the mutations
 
 interface User {
   _id: string;
   username: string;
-  email: string;
-
- 
+  email: string; 
 }
+
 interface Context {// Define the context interface
     user: User;
 }
 
-
-
-
 interface AddUserArgs {
-
   username: string;
   email: string;
   password: string;
@@ -29,7 +22,6 @@ interface AddUserArgs {
 }
 
 interface AddUserArgs {
-
   username: string;
   email: string;
   password: string;
@@ -39,6 +31,24 @@ interface AddUserArgs {
 interface UserArgs {
   email: string;
   password: string;
+}
+
+interface CountryArgs{
+  countryId: string;
+  name: string;
+}
+
+interface AddCountryArgs {
+  input: {
+    name: string;
+    notes: string;
+  }
+}
+
+interface AddDishesArgs {
+  input: {
+    name: string;
+  }
 }
 
 
@@ -54,6 +64,12 @@ export const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
   },
+    countries: async () => {
+      return await Country.find({});
+    },
+    country: async (_: any, { countryId }: { countryId: string }) => {
+      return await Country.findById(countryId);
+    },
   },
 
     //pls create queries for country
