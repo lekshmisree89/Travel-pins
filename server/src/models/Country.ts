@@ -1,10 +1,10 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import { Schema, model, Document } from 'mongoose';
 
 interface IDishes extends Document {
   name: string;
 }
 
-export interface ICountry extends Document {
+interface ICountry extends Document {
   name: string;
   dishes: IDishes[];
   notes: string;
@@ -28,6 +28,6 @@ const countrySchema: Schema = new Schema({
     notes: { type: String, required: true },
   });
   
-  const Country = mongoose.model<ICountry>('Country', countrySchema);
+  const Country = model<ICountry>('Country', countrySchema);
   
   export default Country; 
