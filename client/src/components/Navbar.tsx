@@ -29,7 +29,7 @@ const AppNavbar = () => {
                 <>
                   <Nav.Link as={Link} to='/dishlist'>
                   
-                    see your saved dishes
+                    See your  Favorite destinations
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
