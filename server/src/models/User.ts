@@ -3,15 +3,12 @@ import bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 
 
-
-//import Country from './Country';
-
-
 export interface User extends mongoose.Document {
   id: string;
   username: string;
   email: string;
   password: string;
+  country: Schema.Types.ObjectId[];
   isCorrectPassword(password: string): Promise<boolean>;
  
 
@@ -34,9 +31,12 @@ const userSchema = new Schema<User>(
       type: String,
       required: true,
     },
-    // set savedBooks to be an array of data that adheres to the bookSchema
-
-  // set this to use virtual below
+    country: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Country',
+      },
+    ],
   },
 );
 
