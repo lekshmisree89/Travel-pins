@@ -48,8 +48,7 @@ export const resolvers = {
     me: async (_parent: any, _args: unknown, context: Context) => {
       if (context.user) {
           const userData = await User.findOne({ _id: new mongoose.Types.ObjectId(context.user._id) }) // Cast _id to ObjectId
-              .select('-__v -password')
-              .populate('savedBooks');
+              .select('-__v -password');
 
           return userData;
       }
@@ -57,7 +56,7 @@ export const resolvers = {
   },
   },
 
-    
+    //pls create queries for country
 
 
 
@@ -96,7 +95,7 @@ export const resolvers = {
 
 
  
-//adit:user part is done pls continue below
+//aditi:user part is done pls continue below
     
 
 
