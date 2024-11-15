@@ -14,7 +14,7 @@ const typeDefs = `
   type Country {
     _id: ID
     name: String
-    dishes: [Dishes]
+    dishes: [Dishes]!
     notes: String
     }
 
@@ -30,10 +30,8 @@ const typeDefs = `
 
   type Query {
     me: User
-    countries: [Country]
+    countries: [Country]!
     country(countryId: ID!): Country
-    dishes: [Dishes]
-    dish(dishId: ID!): Dishes
   }
 
   type Mutation {

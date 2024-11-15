@@ -38,6 +38,11 @@ interface CountryArgs{
   name: string;
 }
 
+// interface DishArgs{
+//   dishId: string;
+//   name: string;
+// }
+
 interface AddCountryArgs {
   input: {
     name: string;
@@ -70,11 +75,11 @@ export const resolvers = {
   },
   // get all countries
     countries: async () => {
-      return await Country.find({}).populate('dishes');
+      return await Country.find({}).populate('Dishes');
     },
     // get a country by id
     country: async (_: any, { countryId }: CountryArgs) => {
-      return await Country.findById(countryId).populate('dishes');
+      return await Country.findById(countryId).populate('Dishes');
     },
   },
 

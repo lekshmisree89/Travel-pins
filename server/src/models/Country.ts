@@ -6,18 +6,6 @@ interface ICountry extends Document {
   notes: string;
 }
 
-// const dishSchema: Schema = new Schema({
-//   name: { 
-//     type: String, 
-//     required: true 
-//   }
-// },
-// { toJSON: { getters: true },
-//   toObject: { getters: true }, 
-//   timestamps: true },
-// );
-
-// model<IDishes>('Dishes', dishSchema);
 
 const countrySchema: Schema = new Schema({
     name: { type: String, required: true },
