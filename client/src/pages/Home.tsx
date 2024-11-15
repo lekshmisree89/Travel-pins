@@ -2,10 +2,14 @@ import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
 
 const Home = () => {
-    const { loading, data} = useQuery(GET_ME);
+    const { loading, data } = useQuery(GET_ME);
     const user = data?.me || null;
 
     if (loading) return <p>Loading...</p>;
+
+
+    console.log('log: data', data);
+    console.log('log: user', user);
   
 
     return (
@@ -17,8 +21,7 @@ const Home = () => {
                         <div className="card-body">
                             {user ? (
                                 <div>
-                                    <p className="username">Username: {user.username}</p>
-                                    <p>Email: {user.email}</p>
+                                   
                                     <h4>Welcome back, {user.username}! Explore and enjoy!</h4>
                                 </div>
                             ) : (
