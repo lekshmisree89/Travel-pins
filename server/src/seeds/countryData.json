@@ -1,27 +1,40 @@
 [
   {
     "name": "Spain",
-    "dishes": [
-      "Paella",
-      "Tortilla Española"
+    "dishes": [{
+        "name": "Paella"
+      },
+      {
+        "name": "Tortilla Española"
+    }
     ],
     "notes": "Mediterranean country known for its tapas and Mediterranean cuisine"
   },
   {
     "name": "India",
-    "dishes": [
-      "Butter Chicken",
-      "Biryani",
-      "Masala Dosa"
+    "dishes": [{
+        "name": "Butter Chicken"
+      },
+      {
+        "name": "Biryani"
+      },
+      {
+        "name": "Masala Dosa"
+    }
     ],
     "notes": "Rich culinary diversity with extensive use of spices and curry"
   },
   {
     "name": "Peru",
-    "dishes": [
-      "Ceviche",
-      "Lomo Saltado",
-      "Ají de Gallina"
+    "dishes": [{
+        "name": "Ceviche"
+      },
+      {
+        "name": "Lomo Saltado"
+      },
+      {
+        "name": "Aji de Gallina"
+    }
     ],
     "notes": "Cuisine that blends indigenous, European and Asian influences"
   }

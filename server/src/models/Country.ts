@@ -16,15 +16,16 @@ const dishSchema: Schema = new Schema({
     required: true 
   }
 },
-{ _id: false,
-  toJSON: { getters: true },
+{ toJSON: { getters: true },
   toObject: { getters: true }, 
   timestamps: true },
 );
 
+const Dishes = model<IDishes>('Dishes', dishSchema);
+
 const countrySchema: Schema = new Schema({
     name: { type: String, required: true },
-    dishes: { type: [dishSchema], required: true },
+    dishes: { type: [], required: true },
     notes: { type: String, required: true },
   });
   
