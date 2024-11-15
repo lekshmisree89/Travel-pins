@@ -6,8 +6,6 @@ const typeDefs = `
   
   }
 
-
-  
   type Auth {
     token: ID!
     user: User
@@ -32,10 +30,6 @@ const typeDefs = `
 
   type Query {
     me: User
- 
- 
-
-    
     countries: [Country]
     country(countryId: ID!): Country
     dishes: [Dishes]
