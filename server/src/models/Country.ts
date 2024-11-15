@@ -1,10 +1,10 @@
 import { Schema, model, Document } from 'mongoose';
 
-interface IDishes extends Document {
+export interface IDishes extends Document {
   name: string;
 }
 
-interface ICountry extends Document {
+export interface ICountry extends Document {
   name: string;
   dishes: IDishes[];
   notes: string;
@@ -21,11 +21,11 @@ const dishSchema: Schema = new Schema({
   timestamps: true },
 );
 
-model<IDishes>('Dishes', dishSchema);
+// model<IDishes>('Dishes', dishSchema);
 
 const countrySchema: Schema = new Schema({
     name: { type: String, required: true },
-    dishes: { type: [], required: true },
+    dishes: { type: [dishSchema], required: true },
     notes: { type: String, required: true },
   });
   
