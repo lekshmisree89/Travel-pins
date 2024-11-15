@@ -75,7 +75,8 @@ export const resolvers = {
   },
   // get all countries
     countries: async () => {
-      return await Country.find({}).populate('Dishes');
+      // return await Country.find({}).populate('Dishes');
+      const countries = await Country.find({})
     },
     // get a country by id
     country: async (_: any, { countryId }: CountryArgs) => {
@@ -123,6 +124,7 @@ export const resolvers = {
   updateCountry: async (_: any, { countryId, input }: { countryId: string; input: AddCountryArgs['input'] }) => {
     return await Country.findByIdAndUpdate (countryId, input, { new: true });
   },
+
   // Delete a country
 deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
   if (context.user) {
