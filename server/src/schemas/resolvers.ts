@@ -63,10 +63,12 @@ export const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
   },
+  // get all countries
     countries: async () => {
       return await Country.find({});
     },
-    country: async (_: any, { countryId }: { countryId: string }) => {
+    // get a country by id
+    country: async (_: any, { countryId }: CountryArgs) => {
       return await Country.findById(countryId);
     },
   },
@@ -104,7 +106,26 @@ export const resolvers = {
       const token = signToken(user.username, user.email, user._id);
       return { token, user };
   },
-
+  // Add a country
+  addCountry: async (_: any, { input }: AddCountryArgs) => {
+    return await Country.create(input);
+  },
+  // Update a country
+  updateCountry: async (_: any, { countryId, input }: { countryId: string; input: AddCountryArgs['input'] }) => {
+    return await Country.findByIdAndUpdate (countryId, input, { new: true });
+  },
+  // Delete a country
+  deleteCountry: async (_: any, { countryId }: CountryArgs) => {
+    return await Country.findByIdAndDelete(countryId);
+  },
+  // Add a dish to a country
+  addDishes: async (_: any, { countryId, name }: AddDishesArgs) => {
+    return await Country.findByIdAndUpdate(countryId, { $push: { dishes: name } }, { new: true });
+  },
+  // Delete a dish in a country
+  deleteDishes: async (_: any, { dishId, countryId }: { dishId: string; countryId: string }) => {
+    return await Country.findByIdAndUpdate(countryId, { $pull: { dishes: { _id: dishId } } }, { new: true });
+  }
   }
 };
 
