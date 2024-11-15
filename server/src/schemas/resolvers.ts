@@ -138,7 +138,7 @@ export const resolvers = {
     return await Country.findByIdAndUpdate(countryId, { $push: { dishes: name } }, { new: true });
   },
   // Delete a dish in a country
-  deleteDishes: async (_: any, { dishId, countryId }: { dishId: string; countryId: string }) => {
+  deleteDishes: async (_: any, { dishId, countryId }: RemoveDishesArgs) => {
     return await Country.findByIdAndUpdate(countryId, { $pull: { dishes: { _id: dishId } } }, { new: true });
   }
   }
