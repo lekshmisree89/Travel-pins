@@ -1,6 +1,6 @@
-import { signToken, AuthenticationError } from '../services/auth.js'; // laxmi to check this import
+import { signToken, AuthenticationError } from '../services/auth.js'; 
 import mongoose from 'mongoose';
-import { User, Country } from '../models/index.js'; // Add missing import
+import { User, Country } from '../models/index.js'; 
 
 // interface for arguments passed to the mutations
 
@@ -38,10 +38,6 @@ interface CountryArgs{
   name: string;
 }
 
-// interface DishArgs{
-//   dishId: string;
-//   name: string;
-// }
 
 interface AddCountryArgs {
   input: {
@@ -67,7 +63,8 @@ export const resolvers = {
     me: async (_parent: any, _args: unknown, context: Context) => {
       if (context.user) {
           const userData = await User.findOne({ _id: new mongoose.Types.ObjectId(context.user._id) }) // Cast _id to ObjectId
-              .select('-__v -password');
+              .select('-__v -password')
+              .populate('Country');
 
           return userData;
       }
@@ -75,16 +72,13 @@ export const resolvers = {
   },
   // get all countries
     countries: async () => {
-      // return await Country.find({}).populate('Dishes');
-      const countries = await Country.find({})
+      return await Country.find({});
     },
     // get a country by id
     country: async (_: any, { countryId }: CountryArgs) => {
-      return await Country.findById(countryId).populate('Dishes');
+      return await Country.findById(countryId);
     },
   },
-
-    //pls create queries for country
 
 
 
@@ -110,7 +104,7 @@ export const resolvers = {
       return { token, user };
   },
   // Add a country
-  addCountry: async (_: any, { input }: AddCountryArgs, context: any) => {
+  addCountry: async (_: unknown, { input }: AddCountryArgs, context: Context) => {
     if (context.user) {
       const newCountry = await Country.create({...input});
       await User.findOneAndUpdate(
@@ -156,9 +150,5 @@ deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
   }
   }
 };
-
-
- 
-//aditi:user part is done pls continue below 
   
 export default resolvers;
