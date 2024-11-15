@@ -131,17 +131,6 @@ export const resolvers = {
 
 
  
-//aditi:user part is done pls continue below
-    
-
-
-
-//     // Create a new country
-//     addCountry: async (_: any, { name, code }: { name: string; code: string }) => {
-//       const newCountry = new Country({ name, code });
-//       await newCountry.save();
-//       return newCountry;
-//     },
-//   
+//aditi:user part is done pls continue below 
   
 export default resolvers;
