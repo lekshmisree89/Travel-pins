@@ -24,10 +24,6 @@ const typeDefs = `
     _id: ID
     name: String
     }
-
-    input DishesInput {
-    name: String!
-    }
   
   input CountryInput {
     name: String!
@@ -50,12 +46,10 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addUser(username: String!, email: String!, password: String!): Auth
 
-
-    
     addCountry(input: CountryInput!): Country
     updateCountry(countryId: ID!, input: CountryInput!): Country
     deleteCountry(countryId: ID!): Country
-    addDishes(countryId: ID!, input: DishesInput!): Country
+    addDishes(countryId: ID!, name: String!): Country
     updateDishes(countryId: ID!, input: DishesInput!): Country
     deleteDishes(dishId: ID!, countryID: ID!): Country
   }

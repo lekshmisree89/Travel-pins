@@ -46,9 +46,8 @@ interface AddCountryArgs {
 }
 
 interface AddDishesArgs {
-  input: {
-    name: string;
-  }
+  countryId: string;
+  name: string;
 }
 
 
