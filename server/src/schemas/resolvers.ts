@@ -70,11 +70,11 @@ export const resolvers = {
   },
   // get all countries
     countries: async () => {
-      return await Country.find({});
+      return await Country.find({}).populate('dishes');
     },
     // get a country by id
     country: async (_: any, { countryId }: CountryArgs) => {
-      return await Country.findById(countryId);
+      return await Country.findById(countryId).populate('dishes');
     },
   },
 
