@@ -85,14 +85,6 @@ export const resolvers = {
 
 
 
-
-
-
-
-
-
-
-
   Mutation: {
 
     // ...
@@ -134,8 +126,14 @@ export const resolvers = {
     return await Country.findByIdAndDelete(countryId);
   },
   // Add a dish to a country
-  addDishes: async (_: any, { countryId, name }: AddDishesArgs) => {
-    return await Country.findByIdAndUpdate(countryId, { $push: { dishes: name } }, { new: true });
+  addDishes: async (_: any, { countryId, name }: AddDishesArgs, context: any) => {
+    if (context.user) {
+    return await Country.findByIdAndUpdate(
+      {_id: countryId}, 
+      { $addToSet: { dishes: name } }, 
+      { new: true, runValidators: true });
+  }
+  throw AuthenticationError;
   },
   // Delete a dish in a country
   deleteDishes: async (_: any, { dishId, countryId }: RemoveDishesArgs) => {
