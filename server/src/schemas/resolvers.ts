@@ -35,36 +35,40 @@ interface UserArgs {
 
 interface CountryArgs{
   countryId: string;
-  name: string;
+  countryName: string;
 }
 
 
 interface AddCountryArgs {
   input: {
-    name: string;
+    countryName: string;
     notes: string;
   }
 }
 
 interface AddDishesArgs {
   countryId: string;
-  name: string;
+  dishName: string;
 }
 
 
 interface RemoveDishesArgs {
-  dishId: string;
   countryId: string;
+  dishId: string;
 }
 
 
 export const resolvers = {
   Query: {
+    // users: async () => {
+    //   return await User.find({}).populate('country');
+    // },
+
     me: async (_parent: any, _args: unknown, context: Context) => {
       if (context.user) {
           const userData = await User.findOne({ _id: new mongoose.Types.ObjectId(context.user._id) }) // Cast _id to ObjectId
               .select('-__v -password')
-              .populate('Country');
+              .populate('country');
 
           return userData;
       }
@@ -116,7 +120,7 @@ export const resolvers = {
   },
   // Update a country
   updateCountry: async (_: any, { countryId, input }: { countryId: string; input: AddCountryArgs['input'] }) => {
-    return await Country.findByIdAndUpdate (countryId, input, { new: true });
+    return await Country.findOneAndUpdate({ _id: countryId }, input, { new: true });
   },
 
   // Delete a country
@@ -135,20 +139,33 @@ deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
   throw AuthenticationError;
 },
   // Add a dish to a country
-  addDishes: async (_: any, { countryId, name }: AddDishesArgs, context: any) => {
+  addDishes: async (_: any, { countryId, dishName }: AddDishesArgs, context: any) => {
     if (context.user) {
-    return await Country.findByIdAndUpdate(
+      return Country.findOneAndUpdate(
       {_id: countryId}, 
-      { $addToSet: { dishes: name } }, 
+      { $addToSet: { dishes: {dishName} } }, 
       { new: true, runValidators: true });
   }
   throw AuthenticationError;
   },
   // Delete a dish in a country
-  deleteDishes: async (_: any, { dishId, countryId }: RemoveDishesArgs) => {
-    return await Country.findByIdAndUpdate(countryId, { $pull: { dishes: { _id: dishId } } }, { new: true });
-  }
-  }
+  deleteDishes: async (_parent: any, { countryId, dishId }: RemoveDishesArgs, context: any) => {
+    if (context.user) {
+      return Country.findOneAndUpdate(
+        { _id: countryId },
+        {
+          $pull: {
+            dishes: {
+              _id: dishId
+            },
+          },
+        },
+        { new: true }
+      );
+    }
+    throw AuthenticationError;
+  },
+},
 };
   
 export default resolvers;

@@ -1,14 +1,14 @@
 [
   {
-    "name": "Spain",
+    "countryName": "Spain",
     "notes": "Mediterranean country known for its tapas and Mediterranean cuisine"
   },
   {
-    "name": "India",
+    "countryName": "India",
     "notes": "Rich culinary diversity with extensive use of spices and curry"
   },
   {
-    "name": "Peru",
+    "countryName": "Peru",
     "notes": "Cuisine that blends indigenous, European and Asian influences"
   }
 ]
