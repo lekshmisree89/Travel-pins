@@ -60,11 +60,15 @@ interface RemoveDishesArgs {
 
 export const resolvers = {
   Query: {
+    users: async () => {
+      return await User.find({}).populate('country');
+    },
+
     me: async (_parent: any, _args: unknown, context: Context) => {
       if (context.user) {
           const userData = await User.findOne({ _id: new mongoose.Types.ObjectId(context.user._id) }) // Cast _id to ObjectId
               .select('-__v -password')
-              .populate('Country');
+              .populate('country');
 
           return userData;
       }
@@ -116,7 +120,7 @@ export const resolvers = {
   },
   // Update a country
   updateCountry: async (_: any, { countryId, input }: { countryId: string; input: AddCountryArgs['input'] }) => {
-    return await Country.findByIdAndUpdate (countryId, input, { new: true });
+    return await Country.findOneAndUpdate({ _id: countryId }, input, { new: true });
   },
 
   // Delete a country

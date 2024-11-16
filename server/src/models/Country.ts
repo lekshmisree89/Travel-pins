@@ -23,7 +23,7 @@ interface ICountry extends Document {
 }
 
 
-const countrySchema: Schema = new Schema({
+const countrySchema: Schema = new Schema<ICountry>({
     countryName: { type: String, required: true },
     dishes: { type: [dishSchema], required: true },
     notes: { type: String, required: true },
