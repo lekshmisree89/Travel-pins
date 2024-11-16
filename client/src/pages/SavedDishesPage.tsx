@@ -1,5 +1,4 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 interface Dish {
   name: string;
@@ -7,19 +6,20 @@ interface Dish {
   instructions: string;
 }
 
-interface SavedDishesPageProps {
-  savedDishes: Dish[];
-}
+export const SavedDishesPage = () => {
+  const [savedDishes, setSavedDishes] = useState<Dish[]>([]);
 
-export const SavedDishesPage: React.FC<SavedDishesPageProps> = ({ savedDishes }) => {
-  const navigate = useNavigate();
+  useEffect(() => {
+    const storedDishes = localStorage.getItem('savedDishes');
+    if (storedDishes) {
+      setSavedDishes(JSON.parse(storedDishes));
+    }
+  }, []);
 
   return (
-    <div className="saved-dishes-page">
+    <div className="saved-dishes-container">
       <h2>Saved Dishes</h2>
-      {savedDishes.length === 0 ? (
-        <p>No saved dishes yet.</p>
-      ) : (
+      {savedDishes.length > 0 ? (
         <ul>
           {savedDishes.map((dish, index) => (
             <li key={index}>
@@ -29,8 +29,9 @@ export const SavedDishesPage: React.FC<SavedDishesPageProps> = ({ savedDishes })
             </li>
           ))}
         </ul>
+      ) : (
+        <p>No saved dishes yet.</p>
       )}
-      <button onClick={() => navigate('/')}>Go Back to Explore</button>
     </div>
   );
 };

@@ -19,12 +19,12 @@ const router = createBrowserRouter([
 
       {
         path: '/dishlist', // The path for saved dishes
-        element: <SavedDishesPage savedDishes={[]} />, // Pass the required 'savedDishes' prop
+        element: <SavedDishesPage  />, // Pass the required 'savedDishes' prop
       },
       
       {
         path: '/saved-dishes', // The path for saved dishes
-        element: <SavedDishesPage savedDishes={[]} />, // Pass the required 'savedDishes' prop
+        element: <SavedDishesPage />, // Pass the required 'savedDishes' prop
       },
     ],
   },

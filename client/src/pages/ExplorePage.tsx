@@ -1,10 +1,10 @@
 import '../App.css';
+import { useEffect } from 'react';
 import { FormEvent, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_COUNTRY } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';  // For navigation
 
-// Seed data (replace API with this data)
 const seedData = [
   {
     name: "Spain",
@@ -49,6 +49,20 @@ export const ExplorePage = () => {
   const [error, setError] = useState('');
   const [savedDishes, setSavedDishes] = useState<Dish[]>([]); // State to store saved dishes
   const navigate = useNavigate(); // For navigation to SavedDishesPage
+
+
+   // Load saved dishes from localStorage on component mount
+   useEffect(() => {
+    const storedDishes = localStorage.getItem('savedDishes');
+    if (storedDishes) {
+      setSavedDishes(JSON.parse(storedDishes));
+    }
+  }, []);
+   // Save saved dishes to localStorage whenever it changes
+   useEffect(() => {
+    localStorage.setItem('savedDishes', JSON.stringify(savedDishes));
+  }, [savedDishes]);
+
 
   // Handle input change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

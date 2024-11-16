@@ -4,17 +4,18 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
+import { Alert, Button } from 'react-bootstrap';
 
 interface LoginProps {
   handleModalClose: () => void;
 }
 
-const Login: React.FC<LoginProps> = () => {
-
+const Login: React.FC<LoginProps> = ({ handleModalClose }) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
-  // update state based on form input changes
+  // Handle form input change
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target as HTMLInputElement;
 
@@ -24,21 +25,29 @@ const Login: React.FC<LoginProps> = () => {
     });
   };
 
-  // submit form
+  // Handle form submission
   const handleFormSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(formState);
+    setLoginError(null); // Reset login error
+
     try {
       const { data } = await login({
         variables: { ...formState },
       });
 
-      Auth.login(data.login.token);
+      if (data?.login?.token) {
+        // Successfully logged in, store token
+        Auth.login(data.login.token);
+        handleModalClose(); // Close the modal upon successful login
+      } else {
+        setLoginError("Invalid credentials. Please check your email and password.");
+      }
     } catch (e) {
       console.error(e);
+      setLoginError("An error occurred during login. Please try again.");
     }
 
-    // clear form values
+    // Clear form values
     setFormState({
       email: '',
       password: '',
@@ -84,10 +93,16 @@ const Login: React.FC<LoginProps> = () => {
               </form>
             )}
 
+            {loginError && (
+              <Alert variant="danger" className="mt-3">
+                {loginError}
+              </Alert>
+            )}
+
             {error && (
-              <div className="my-3 p-3 bg-danger text-white">
-                {error.message}
-              </div>
+              <Alert variant="danger" className="mt-3">
+                {error.message || "An error occurred during login."}
+              </Alert>
             )}
           </div>
         </div>
