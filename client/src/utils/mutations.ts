@@ -29,7 +29,7 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_COUNTRY_TO_USER = gql`
+export const ADD_COUNTRY = gql`
   mutation addCountry($input: CountryInput!) {
     addCountry(input: $input) {
       _id

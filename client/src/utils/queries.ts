@@ -20,15 +20,12 @@ export const GET_ME = gql`
 `;
 
 export const GET_COUNTRIES = gql`
-  query countries {
-    countries {
-      _id
-      name
-      notes
-      dishes {
-        _id
-        name
+  query nationalDish {
+    name
+    ingredients
+    instructions
       }
     }
   }
 `;
+    
