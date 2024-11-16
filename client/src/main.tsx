@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './pages/Home.tsx';
+import Home from './pages/ExplorePage.tsx';
 import Profile from './components/Profile.tsx';
 // import Country from './pages/Country.tsx';
 // import SingleCountry from './pages/SingleCountry.tsx';
