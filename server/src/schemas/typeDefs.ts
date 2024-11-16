@@ -42,7 +42,7 @@ const typeDefs = `
     updateCountry(countryId: ID!, input: CountryInput!): Country
     deleteCountry(countryId: ID!): Country
     addDishes(countryId: ID!, dishName: String!): Country
-    deleteDishes(dishId: ID!, countryID: ID!): Country
+    deleteDishes(countryId: ID!, dishId: ID!): Country
   }
 `;
 

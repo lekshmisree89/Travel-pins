@@ -53,16 +53,16 @@ interface AddDishesArgs {
 
 
 interface RemoveDishesArgs {
-  dishId: string;
   countryId: string;
+  dishId: string;
 }
 
 
 export const resolvers = {
   Query: {
-    users: async () => {
-      return await User.find({}).populate('country');
-    },
+    // users: async () => {
+    //   return await User.find({}).populate('country');
+    // },
 
     me: async (_parent: any, _args: unknown, context: Context) => {
       if (context.user) {
@@ -143,16 +143,29 @@ deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
     if (context.user) {
       return Country.findOneAndUpdate(
       {_id: countryId}, 
-      { $addToSet: { dishes: dishName } }, 
+      { $addToSet: { dishes: {dishName} } }, 
       { new: true, runValidators: true });
   }
   throw AuthenticationError;
   },
   // Delete a dish in a country
-  deleteDishes: async (_: any, { dishId, countryId }: RemoveDishesArgs) => {
-    return await Country.findByIdAndUpdate(countryId, { $pull: { dishes: { _id: dishId } } }, { new: true });
-  }
-  }
+  deleteDishes: async (_parent: any, { countryId, dishId }: RemoveDishesArgs, context: any) => {
+    if (context.user) {
+      return Country.findOneAndUpdate(
+        { _id: countryId },
+        {
+          $pull: {
+            dishes: {
+              _id: dishId
+            },
+          },
+        },
+        { new: true }
+      );
+    }
+    throw AuthenticationError;
+  },
+},
 };
   
 export default resolvers;
