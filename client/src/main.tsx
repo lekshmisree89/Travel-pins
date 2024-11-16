@@ -1,12 +1,13 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Home from './pages/ExplorePage.tsx';
-import Profile from './components/Profile.tsx';
+import ExplorePage from './pages/ExplorePage.tsx';
+import App from './App.jsx';
+
+
 // import Country from './pages/Country.tsx';
 // import SingleCountry from './pages/SingleCountry.tsx';
 
-import App from './App.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,16 +21,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />
+        element: <ExplorePage />
       },
-      {
-        path: '/profiles/:username',
-        element: <Profile />
-      },
-      { 
-        path: '/me',
-        element: <Profile />
-      },
+      
+     
       // { 
       //   path: '/country',
       //   element: <Country />

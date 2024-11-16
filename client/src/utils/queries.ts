@@ -6,6 +6,18 @@ export const GET_ME = gql`
       _id
       username
       email
+      countries {
+        _id
+        name
+        dishes {
+          _id
+          name
+          description
+          image
+        }
+      }
+
+
     }
   }
 `;
