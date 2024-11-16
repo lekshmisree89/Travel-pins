@@ -147,7 +147,7 @@ export const resolvers = {
         return await Country.findByIdAndUpdate(
           countryId,
           { $addToSet: { dishes: { name } } }, // Ensure `dishes` is an array of objects
-          { new: true, runValidators: true }
+          { new: true }
         );
       }
       throw new AuthenticationError('You need to be logged in to perform this action');
