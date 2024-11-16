@@ -16,9 +16,15 @@ const router = createBrowserRouter([
         index: true, // The default route, shows the ExplorePage at '/'
         element: <ExplorePage />,
       },
+
+      {
+        path: '/dishlist', // The path for saved dishes
+        element: <SavedDishesPage savedDishes={[]} />, // Pass the required 'savedDishes' prop
+      },
+      
       {
         path: '/saved-dishes', // The path for saved dishes
-        element: <SavedDishesPage />,
+        element: <SavedDishesPage savedDishes={[]} />, // Pass the required 'savedDishes' prop
       },
     ],
   },
