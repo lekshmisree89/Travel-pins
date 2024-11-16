@@ -13,18 +13,18 @@ const typeDefs = `
 
   type Country {
     _id: ID
-    name: String
+    countryName: String
     dishes: [Dishes]!
     notes: String
     }
 
   type Dishes {
     _id: ID
-    name: String
+    dishName: String
     }
   
   input CountryInput {
-    name: String!
+    countryName: String!
     notes: String
     }
 
@@ -41,7 +41,7 @@ const typeDefs = `
     addCountry(input: CountryInput!): Country
     updateCountry(countryId: ID!, input: CountryInput!): Country
     deleteCountry(countryId: ID!): Country
-    addDishes(countryId: ID!, name: String!): Country
+    addDishes(countryId: ID!, dishName: String!): Country
     deleteDishes(dishId: ID!, countryID: ID!): Country
   }
 `;

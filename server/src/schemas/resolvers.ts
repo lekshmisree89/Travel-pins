@@ -35,20 +35,20 @@ interface UserArgs {
 
 interface CountryArgs{
   countryId: string;
-  name: string;
+  countryName: string;
 }
 
 
 interface AddCountryArgs {
   input: {
-    name: string;
+    countryName: string;
     notes: string;
   }
 }
 
 interface AddDishesArgs {
   countryId: string;
-  name: string;
+  dishName: string;
 }
 
 
@@ -135,11 +135,11 @@ deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
   throw AuthenticationError;
 },
   // Add a dish to a country
-  addDishes: async (_: any, { countryId, name }: AddDishesArgs, context: any) => {
+  addDishes: async (_: any, { countryId, dishName }: AddDishesArgs, context: any) => {
     if (context.user) {
-    return await Country.findByIdAndUpdate(
+      return Country.findOneAndUpdate(
       {_id: countryId}, 
-      { $addToSet: { dishes: name } }, 
+      { $addToSet: { dishes: dishName } }, 
       { new: true, runValidators: true });
   }
   throw AuthenticationError;
