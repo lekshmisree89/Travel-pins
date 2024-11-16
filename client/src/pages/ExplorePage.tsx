@@ -2,6 +2,7 @@ import '../App.css';
 import { FormEvent, useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_COUNTRY } from '../utils/mutations';
+import { useNavigate } from 'react-router-dom';  // For navigation
 
 // Seed data (replace API with this data)
 const seedData = [
@@ -47,6 +48,7 @@ export const ExplorePage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [savedDishes, setSavedDishes] = useState<Dish[]>([]); // State to store saved dishes
+  const navigate = useNavigate(); // For navigation to SavedDishesPage
 
   // Handle input change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +62,7 @@ export const ExplorePage = () => {
 
     setLoading(true);
     setError('');
-    
+
     try {
       // Find the country in the seed data
       const countryData = seedData.find((data) => data.name.toLowerCase() === country.toLowerCase());
@@ -88,6 +90,7 @@ export const ExplorePage = () => {
   const handleAddToSaved = () => {
     if (dish) {
       setSavedDishes((prevSavedDishes) => [...prevSavedDishes, dish]); // Add the dish to the saved dishes
+      navigate('/saved-dishes'); // Redirect to saved dishes page
     }
   };
 
@@ -116,19 +119,6 @@ export const ExplorePage = () => {
           <p><strong>Ingredients:</strong> {dish?.ingredients.join(', ')}</p>
           <p><strong>Instructions:</strong> {dish?.instructions}</p>
           <button className="save-dish-button" onClick={handleAddToSaved}>Add to Saved Dishes</button>
-        </div>
-      )}
-
-      {savedDishes.length > 0 && (
-        <div className="saved-dishes">
-          <h3>Saved Dishes:</h3>
-          <ul>
-            {savedDishes.map((savedDish, index) => (
-              <li key={index}>
-                <strong>{savedDish.name}</strong> - Ingredients: {savedDish.ingredients.join(', ')}
-              </li>
-            ))}
-          </ul>
         </div>
       )}
     </div>
