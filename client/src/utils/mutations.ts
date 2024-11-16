@@ -1,5 +1,7 @@
+
 import { gql } from '@apollo/client';
 
+// Login Mutation
 export const LOGIN_USER = gql`
   mutation login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
@@ -12,63 +14,78 @@ export const LOGIN_USER = gql`
     }
   }
 `;
- 
 
+// Add User Mutation
 export const ADD_USER = gql`
-mutation addUser($username: String!, $email: String!, $password: String!) {
-  addUser(username: $username, email: $email, password: $password) {
-    token
-    user {
-      _id
-      username
-      email
+  mutation addUser($username: String!, $email: String!, $password: String!) {
+    addUser(username: $username, email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+        email
+      }
     }
   }
+`;
 
-}
+export const ADD_COUNTRY_TO_USER = gql`
+  mutation addCountry($input: CountryInput!) {
+    addCountry(input: $input) {
+      _id
+      name
+      notes
+    }
+  }
+`;
+
    
-`;
-
-export const ADD_COUNTRY = gql`
-mutation addCountry($name: String!, $dishes: [String]!, $notes: String) {
-  addCountry(name: $name, dishes: $dishes, notes: $notes) {
-    name
-    dishes
-    notes
-  }
-}
-`;
-
+     
+// Add Dish Mutation
 export const ADD_DISHES = gql`
-mutation addDish($countryId: ID!, $name: String!, $notes: String) {
-  addDish(countryId: $countryId, name: $name, notes: $notes) {
-    name
-    notes
+  mutation addDishes($countryId: ID!, $name: String!) {
+    addDishes(countryId: $countryId, name: $name) {
+      _id
+      name
+      dishes {
+        _id
+        name
+      }
+    }
   }
-}
 `;
 
+// Delete Country Mutation
 export const DELETE_COUNTRY = gql`
-mutation removeCountry($countryId: ID!) {
-  removeCountry(countryId: $countryId) {
-    name
+  mutation deleteCountry($countryId: ID!) {
+    deleteCountry(countryId: $countryId) {
+      _id
+      name
+    }
   }
-}
 `;
 
+// Delete Dish Mutation
 export const DELETE_DISHES = gql`
-mutation removeDish($countryId: ID!, $dishId: ID!) {
-  removeDish(countryId: $countryId, dishId: $dishId) {
-    name
+  mutation deleteDishes($countryId: ID!, $dishId: ID!) {
+    deleteDishes(countryId: $countryId, dishId: $dishId) {
+      _id
+      name
+      dishes {
+        _id
+        name
+      }
+    }
   }
-}
 `;
 
-
+// Update Country Mutation
 export const UPDATE_COUNTRY = gql`
-mutation updateCountry($countryId: ID!, $name: String!) {
-  updateCountry(countryId: $countryId, name: $name) {
-    name
+  mutation updateCountry($countryId: ID!, $input: CountryInput!) {
+    updateCountry(countryId: $countryId, input: $input) {
+      _id
+      name
+      notes
+    }
   }
-}
 `;
