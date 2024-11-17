@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { ExplorePage } from './pages/ExplorePage'; // Correct path
 import { SavedDishesPage } from './pages/SavedDishesPage'; // Create this page for saved dishes
 import App from './App'; // Main app container
+import {ProtectedRoute}from './components/ProtectedRoutes'; // Correct path
 
 // Define the router with paths and components
 const router = createBrowserRouter([
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true, // The default route, shows the ExplorePage at '/'
-        element: <ExplorePage />,
+        element: <ProtectedRoute><ExplorePage /></ProtectedRoute>
       },
 
       {
