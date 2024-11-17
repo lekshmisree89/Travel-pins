@@ -34,5 +34,90 @@
         "dishName": "Lomo Saltado"
       }
     ]
+  },
+
+  {
+    "countryName": "Italy",
+    "notes": "Known for its pasta, pizza and wine",
+    "dishes": [
+      {
+        "dishName": "Pasta Carbonara"
+      },
+      {
+        "dishName": "Margherita Pizza"
+      }
+    ]
+  },
+  {
+    "countryName": "Japan",
+    "notes": "Known for its sushi, ramen and tempura",
+    "dishes": [
+      {
+        "dishName": "Sushi"
+      },
+      {
+        "dishName": "Ramen"
+      }
+    ]
+  },
+  {
+    "countryName": "Mexico",
+    "notes": "Known for its tacos, guacamole and tequila",
+    "dishes": [
+      {
+        "dishName": "Tacos"
+      },
+      {
+        "dishName": "Guacamole"
+      }
+    ]
+  },
+  {
+    "countryName": "Thailand",
+    "notes": "Known for its curries, noodles and street food",
+    "dishes": [
+      {
+        "dishName": "Pad Thai"
+      },
+      {
+        "dishName": "Green Curry"
+      }
+    ]
+  },
+  {
+    "countryName": "Morocco",
+    "notes": "Known for its tagines, couscous and mint tea",
+    "dishes": [
+      {
+        "dishName": "Tagine"
+      },
+      {
+        "dishName": "Couscous"
+      }
+    ]
+  },
+  {
+    "countryName": "Lebanon",
+    "notes": "Known for its mezze, falafel and baklava",
+    "dishes": [
+      {
+        "dishName": "Hummus"
+      },
+      {
+        "dishName": "Falafel"
+      }
+    ]
+  },
+  {
+    "countryName": "China",
+    "notes": "Known for its dim sum, noodles and Peking duck",
+    "dishes": [
+      {
+        "dishName": "Dim Sum"
+      },
+      {
+        "dishName": "Peking Duck"
+      }
+    ]
   }
 ]
