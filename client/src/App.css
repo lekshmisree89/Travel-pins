@@ -15,3 +15,16 @@ h6 {
   font-weight: 300;
   font-style: italic;
 }
+
+.form-container {
+  display: flex;
+  align-items: center; /* Vertically align items if needed */
+}
+
+.text-box {
+  margin-right: 10px; /* Add space between the text box and button */
+}
+
+.submit-button {
+  padding: 8px 15px; /* Adjust button size */
+}

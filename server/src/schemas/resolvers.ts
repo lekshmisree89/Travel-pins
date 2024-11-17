@@ -1,31 +1,23 @@
-import { signToken, AuthenticationError } from '../services/auth.js'; 
+import { signToken } from '../services/auth.js'; 
 import mongoose from 'mongoose';
 import { User, Country } from '../models/index.js'; 
+import { AuthenticationError } from 'apollo-server-express';
 
-// interface for arguments passed to the mutations
-
+// Interface Definitions
 interface User {
   _id: string;
   username: string;
   email: string; 
 }
 
-interface Context {// Define the context interface
-    user: User;
+interface Context {
+  user: User;
 }
 
 interface AddUserArgs {
   username: string;
   email: string;
   password: string;
-
-}
-
-interface AddUserArgs {
-  username: string;
-  email: string;
-  password: string;
-
 }
 
 interface UserArgs {
@@ -33,17 +25,16 @@ interface UserArgs {
   password: string;
 }
 
-interface CountryArgs{
+interface CountryArgs {
   countryId: string;
   countryName: string;
 }
-
 
 interface AddCountryArgs {
   input: {
     countryName: string;
     notes: string;
-  }
+  };
 }
 
 interface AddDishesArgs {
@@ -51,12 +42,10 @@ interface AddDishesArgs {
   dishName: string;
 }
 
-
 interface RemoveDishesArgs {
   countryId: string;
   dishId: string;
 }
-
 
 export const resolvers = {
   Query: {
@@ -70,39 +59,45 @@ export const resolvers = {
               .select('-__v -password')
               .populate('country');
 
-          return userData;
+        return userData;
       }
       throw new AuthenticationError('Not logged in');
-  },
-  // get all countries
+    },
+
+    // Get all countries
     countries: async () => {
       return await Country.find({});
     },
-    // get a country by id
+
+    countryByName: async (_parent: any, { countryName }: { countryName: string }) => {
+      return await Country.findOne({ countryName });
+    },
+
+    // Get a country by its ID
     country: async (_: any, { countryId }: CountryArgs) => {
       return await Country.findById(countryId);
     },
   },
 
-
-
   Mutation: {
-
-    // ...
-
+    // User login
     login: async (_parent: any, { email, password }: UserArgs) => {
       const user = await User.findOne({ email });
       if (!user) {
-          throw new AuthenticationError('Incorrect credentials');
+        throw new AuthenticationError('Incorrect credentials');
       }
+
       const correctPw = await user.isCorrectPassword(password);
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials');
       }
+
       const token = signToken(user.username, user.email, user._id);
       return { token, user };
     },
-  addUser: async (_parent: any, args: AddUserArgs) => {
+
+    // Add a new user
+    addUser: async (_parent: any, args: AddUserArgs) => {
       const user = await User.create(args);
       const token = signToken(user.username, user.email, user._id);
       return { token, user };
@@ -167,5 +162,5 @@ deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
   },
 },
 };
-  
+
 export default resolvers;
