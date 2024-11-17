@@ -27,40 +27,37 @@ interface UserArgs {
 
 interface CountryArgs {
   countryId: string;
-  name: string;
+  countryName: string;
 }
 
 interface AddCountryArgs {
   input: {
-    name: string;
+    countryName: string;
     notes: string;
   };
 }
 
 interface AddDishesArgs {
   countryId: string;
-  name: string;
+  dishName: string;
 }
 
 interface RemoveDishesArgs {
-  dishId: string;
   countryId: string;
+  dishId: string;
 }
 
 export const resolvers = {
   Query: {
-    // Get logged-in user's information
+    // users: async () => {
+    //   return await User.find({}).populate('country');
+    // },
+
     me: async (_parent: any, _args: unknown, context: Context) => {
       if (context.user) {
-        const userData = await User.findOne({ _id: new mongoose.Types.ObjectId(context.user._id) })
-          .select('-__v -password')
-          .populate({
-            path: 'countries',
-            populate: {
-              path: 'dishes',
-              model: 'Dish', // Replace with the correct model name for dishes if different
-            },
-          });
+          const userData = await User.findOne({ _id: new mongoose.Types.ObjectId(context.user._id) }) // Cast _id to ObjectId
+              .select('-__v -password')
+              .populate('country');
 
         return userData;
       }
@@ -70,6 +67,10 @@ export const resolvers = {
     // Get all countries
     countries: async () => {
       return await Country.find({});
+    },
+
+    countryByName: async (_parent: any, { countryName }: { countryName: string }) => {
+      return await Country.findOne({ countryName });
     },
 
     // Get a country by its ID
@@ -100,68 +101,66 @@ export const resolvers = {
       const user = await User.create(args);
       const token = signToken(user.username, user.email, user._id);
       return { token, user };
-    },
+  },
+  // Add a country
+  addCountry: async (_: unknown, { input }: AddCountryArgs, context: Context) => {
+    if (context.user) {
+      const newCountry = await Country.create({...input});
+      await User.findOneAndUpdate(
+        {_id: context.user._id}, 
+        { $addToSet: { countries: newCountry._id } });
+      return newCountry;
+    }
+    throw new AuthenticationError('You need to be logged in to perform this action');
+  },
+  // Update a country
+  updateCountry: async (_: any, { countryId, input }: { countryId: string; input: AddCountryArgs['input'] }) => {
+    return await Country.findOneAndUpdate({ _id: countryId }, input, { new: true });
+  },
 
-    // Add a new country
-    addCountry: async (_: unknown, { input }: AddCountryArgs, context: Context) => {
-      if (context.user) {
-        const newCountry = await Country.create({ ...input });
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { countries: newCountry._id } }
-        );
-        return newCountry;
-      }
-      throw new AuthenticationError('You need to be logged in to perform this action');
-    },
-
-    // Update a country
-    updateCountry: async (
-      _: any,
-      { countryId, input }: { countryId: string; input: AddCountryArgs['input'] }
-    ) => {
-      return await Country.findByIdAndUpdate(countryId, input, { new: true });
-    },
-
-    // Delete a country
-    deleteCountry: async (_: any, { countryId }: CountryArgs, context: Context) => {
-      if (context.user) {
-        const country = await Country.findByIdAndDelete(countryId);
-        if (!country) {
-          throw new Error('No country found');
-        }
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { countries: countryId } }
-        );
-
-        return country;
-      }
-      throw new AuthenticationError('You need to be logged in to perform this action');
-    },
-
-    // Add a dish to a country
-    addDishes: async (_: any, { countryId, name }: AddDishesArgs, context: Context) => {
-      if (context.user) {
-        return await Country.findByIdAndUpdate(
-          countryId,
-          { $addToSet: { dishes: { name } } }, // Ensure `dishes` is an array of objects
-          { new: true }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in to perform this action');
-    },
-
-    // Delete a dish in a country
-    deleteDishes: async (_: any, { dishId, countryId }: RemoveDishesArgs) => {
-      return await Country.findByIdAndUpdate(
-        countryId,
-        { $pull: { dishes: { _id: dishId } } },
+  // Delete a country
+deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
+  if (context.user) {
+    const country = await Country.findByIdAndDelete(countryId);
+    if (!country) {
+      throw new Error('No country found');
+    }
+    await User.findOneAndUpdate(
+      {_id: context.user._id}, 
+      { $pull: { countries: countryId } });
+    
+    return country;
+  }
+  throw AuthenticationError;
+},
+  // Add a dish to a country
+  addDishes: async (_: any, { countryId, dishName }: AddDishesArgs, context: any) => {
+    if (context.user) {
+      return Country.findOneAndUpdate(
+      {_id: countryId}, 
+      { $addToSet: { dishes: {dishName} } }, 
+      { new: true, runValidators: true });
+  }
+  throw AuthenticationError;
+  },
+  // Delete a dish in a country
+  deleteDishes: async (_parent: any, { countryId, dishId }: RemoveDishesArgs, context: any) => {
+    if (context.user) {
+      return Country.findOneAndUpdate(
+        { _id: countryId },
+        {
+          $pull: {
+            dishes: {
+              _id: dishId
+            },
+          },
+        },
         { new: true }
       );
-    },
+    }
+    throw AuthenticationError;
   },
+},
 };
 
 export default resolvers;

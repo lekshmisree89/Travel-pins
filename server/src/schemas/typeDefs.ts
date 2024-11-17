@@ -12,10 +12,10 @@ const typeDefs = `
   }
 
   type Country {
-    _id: ID!
-    name: String!
+    _id: ID
+    countryName: String
+    dishes: [Dishes]!
     notes: String
-    dishes: [String]!
   }
 
   type Dish {
@@ -23,8 +23,13 @@ const typeDefs = `
     name: String!
   }
 
+  type Dishes {
+    _id: ID
+    dishName: String
+  }
+  
   input CountryInput {
-    name: String!
+    countryName: String!
     notes: String
   }
 
@@ -37,6 +42,9 @@ const typeDefs = `
 
     # Get a specific country by ID
     country(countryId: ID!): Country
+
+    # Get a country by name
+    countryByName(countryName: String!): Country
   }
 
   type Mutation {
@@ -48,10 +56,8 @@ const typeDefs = `
     addCountry(input: CountryInput!): Country
     updateCountry(countryId: ID!, input: CountryInput!): Country
     deleteCountry(countryId: ID!): Country
-
-
-    addDishes(countryId: ID!, name: String!): Country
-    deleteDishes(dishId: ID!, countryId: ID!): Country
+    addDishes(countryId: ID!, dishName: String!): Country
+    deleteDishes(countryId: ID!, dishId: ID!): Country
   }
 `;
 

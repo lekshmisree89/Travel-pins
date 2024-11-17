@@ -23,9 +23,27 @@ export const GET_ME = gql`
 export const GET_COUNTRIES = gql`
   query countries {
     countries {
-      name
+      _id
+      countryName
       notes
-      dishes
+      dishes {
+        _id
+        dishName
+      }
+    }
+  }
+`;
+
+export const GET_COUNTRY_BY_NAME = gql`
+  query GetCountryByName($countryName: String!) {
+    countryByName(countryName: $countryName) {
+      _id
+      countryName
+      notes
+      dishes {
+        _id
+        dishName
+      }
     }
   }
 `;

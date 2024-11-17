@@ -1,14 +1,38 @@
 [
   {
-    "name": "Spain",
-    "notes": "Mediterranean country known for its tapas and Mediterranean cuisine"
+    "countryName": "Spain",
+    "notes": "Mediterranean country known for its tapas and Mediterranean cuisine",
+    "dishes": [
+      {
+        "dishName": "Paella"
+      },
+      {
+        "dishName": "Gazpacho"
+      }
+    ]
   },
   {
-    "name": "India",
-    "notes": "Rich culinary diversity with extensive use of spices and curry"
+    "countryName": "India",
+    "notes": "Rich culinary diversity with extensive use of spices and curry",
+    "dishes": [
+      {
+        "dishName": "Biryani"
+      },
+      {
+        "dishName": "Butter Chicken"
+      }
+    ]
   },
   {
-    "name": "Peru",
-    "notes": "Cuisine that blends indigenous, European and Asian influences"
+    "countryName": "Peru",
+    "notes": "Cuisine that blends indigenous, European and Asian influences",
+    "dishes": [
+      {
+        "dishName": "Ceviche"
+      },
+      {
+        "dishName": "Lomo Saltado"
+      }
+    ]
   }
 ]
