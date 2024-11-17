@@ -15,7 +15,7 @@ const typeDefs = `
     _id: ID!
     name: String!
     notes: String
-    dishes: [Dish]!
+    dishes: [String]!
   }
 
   type Dish {

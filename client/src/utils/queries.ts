@@ -21,11 +21,11 @@ export const GET_ME = gql`
 `;
 
 export const GET_COUNTRIES = gql`
-  query nationalDish {
-    name
-    ingredients
-    instructions
-      }
+  query countries {
+    countries {
+      name
+      notes
+      dishes
     }
   }
 `;

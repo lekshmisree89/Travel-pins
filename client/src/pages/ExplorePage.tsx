@@ -1,9 +1,10 @@
 import '../App.css';
 import { useEffect } from 'react';
 import { FormEvent, useState } from 'react';
-import { useMutation } from '@apollo/client';
+import { useLazyQuery, useMutation } from '@apollo/client';
 import { ADD_COUNTRY } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';  // For navigation
+import { GET_COUNTRIES } from '../utils/queries';
 
 const seedData = [
   {
@@ -43,25 +44,9 @@ interface Dish {
 
 export const ExplorePage = () => {
   const [country, setCountry] = useState('');
-  const [addCountry] = useMutation(ADD_COUNTRY);
-  const [dish, setDish] = useState<Dish | null>(null); // State to store the national dish data
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [savedDishes, setSavedDishes] = useState<Dish[]>([]); // State to store saved dishes
   const navigate = useNavigate(); // For navigation to SavedDishesPage
-
-
-   // Load saved dishes from localStorage on component mount
-   useEffect(() => {
-    const storedDishes = localStorage.getItem('savedDishes');
-    if (storedDishes) {
-      setSavedDishes(JSON.parse(storedDishes));
-    }
-  }, []);
-   // Save saved dishes to localStorage whenever it changes
-   useEffect(() => {
-    localStorage.setItem('savedDishes', JSON.stringify(savedDishes));
-  }, [savedDishes]);
+  const [fetchCountries, { loading: loadingCountries, data: countries }] = useLazyQuery(GET_COUNTRIES);
 
 
   // Handle input change
@@ -73,40 +58,16 @@ export const ExplorePage = () => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!country) return;
-
-    setLoading(true);
     setError('');
-
     try {
-      // Find the country in the seed data
-      const countryData = seedData.find((data) => data.name.toLowerCase() === country.toLowerCase());
-
-      if (countryData) {
-        setDish(countryData.dish); // Set the dish data if the country is found
-      } else {
-        setError('Country not found in the seed data');
-      }
-
-      // Optionally, add the country to your database (with GraphQL mutation)
-      addCountry({
-        variables: { name: country },
-      });
-
+      fetchCountries({ variables: { name: country } });
     } catch (err) {
       setError('Failed to fetch national dish');
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   };
 
-  // Handle adding dish to saved dishes
-  const handleAddToSaved = () => {
-    if (dish) {
-      setSavedDishes((prevSavedDishes) => [...prevSavedDishes, dish]); // Add the dish to the saved dishes
-      navigate('/saved-dishes'); // Redirect to saved dishes page
-    }
-  };
+  console.log('log: countries', countries);
 
   return (
     <div className="form-container">
@@ -123,10 +84,10 @@ export const ExplorePage = () => {
         </button>
       </form>
 
-      {loading && <p>Loading...</p>} {/* Show loading text */}
+      {loadingCountries && <p>Loading...</p>} {/* Show loading text */}
       {error && <p>{error}</p>} {/* Show error message */}
       
-      {dish && (
+      {/* {dish && (
         <div className="dish-info">
           <h2>National Dish of {country}:</h2>
           <p><strong>{dish?.name}</strong></p>
@@ -134,7 +95,7 @@ export const ExplorePage = () => {
           <p><strong>Instructions:</strong> {dish?.instructions}</p>
           <button className="save-dish-button" onClick={handleAddToSaved}>Add to Saved Dishes</button>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

@@ -4,18 +4,17 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
-import { Alert, Button } from 'react-bootstrap';
 
 interface LoginProps {
   handleModalClose: () => void;
 }
 
-const Login: React.FC<LoginProps> = ({ handleModalClose }) => {
+const Login: React.FC<LoginProps> = () => {
+
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error, data }] = useMutation(LOGIN_USER);
-  const [loginError, setLoginError] = useState<string | null>(null);
 
-  // Handle form input change
+  // update state based on form input changes
   const handleChange = (event: ChangeEvent) => {
     const { name, value } = event.target as HTMLInputElement;
 
@@ -25,29 +24,21 @@ const Login: React.FC<LoginProps> = ({ handleModalClose }) => {
     });
   };
 
-  // Handle form submission
+  // submit form
   const handleFormSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    setLoginError(null); // Reset login error
-
+    console.log(formState);
     try {
       const { data } = await login({
         variables: { ...formState },
       });
 
-      if (data?.login?.token) {
-        // Successfully logged in, store token
-        Auth.login(data.login.token);
-        handleModalClose(); // Close the modal upon successful login
-      } else {
-        setLoginError("Invalid credentials. Please check your email and password.");
-      }
+      Auth.login(data.login.token);
     } catch (e) {
       console.error(e);
-      setLoginError("An error occurred during login. Please try again.");
     }
 
-    // Clear form values
+    // clear form values
     setFormState({
       email: '',
       password: '',
@@ -93,16 +84,10 @@ const Login: React.FC<LoginProps> = ({ handleModalClose }) => {
               </form>
             )}
 
-            {loginError && (
-              <Alert variant="danger" className="mt-3">
-                {loginError}
-              </Alert>
-            )}
-
             {error && (
-              <Alert variant="danger" className="mt-3">
-                {error.message || "An error occurred during login."}
-              </Alert>
+              <div className="my-3 p-3 bg-danger text-white">
+                {error.message}
+              </div>
             )}
           </div>
         </div>
