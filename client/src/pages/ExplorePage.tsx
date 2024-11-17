@@ -1,13 +1,13 @@
 import '../App.css';
 import { FormEvent, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';  // For navigation
+//import { useNavigate } from 'react-router-dom';  // For navigation
 import { GET_COUNTRY_BY_NAME } from '../utils/queries';
 
 export const ExplorePage = () => {
   const [country, setCountry] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // For navigation to SavedDishesPage
+  //const navigate = useNavigate(); // For navigation to SavedDishesPage
   const [fetchCountries, { loading: loadingCountries, data: countryResponse }] = useLazyQuery(GET_COUNTRY_BY_NAME);
 
 
@@ -24,7 +24,7 @@ export const ExplorePage = () => {
     try {
       fetchCountries({ variables: { countryName: country } });
     } catch (err) {
-      setError('Failed to fetch national dish');
+      setError('Failed to fetch country data');
       console.error(err);
     }
   };
