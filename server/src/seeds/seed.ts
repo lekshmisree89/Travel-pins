@@ -11,7 +11,9 @@ const seedDatabase = async (): Promise<void> => {
     await cleanDB();
 
     await User.insertMany(userSeeds);
-    await Country.insertMany(countrySeeds);
+    //add counrty in lower case
+
+    await Country.insertMany(countrySeeds)
     // await Dishes.insertMany(dishSeeds);
 
     console.log('Seeding completed successfully!');
