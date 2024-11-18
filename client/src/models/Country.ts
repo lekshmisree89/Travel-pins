@@ -1,6 +1,6 @@
 export interface Dish {
   id: number;
-  name: string;
+  dishName: string;
   description: string;
   image: string; // URL to the dish image
 }

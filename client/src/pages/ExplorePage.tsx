@@ -5,6 +5,7 @@ import { useLazyQuery } from '@apollo/client';
 import { GET_COUNTRY_BY_NAME } from '../utils/queries';
 import { ADD_COUNTRY } from '../utils/mutations'; 
 import { useMutation } from '@apollo/client'; // Import the ADD_DISHES mutation
+import { Dish } from '../models/Country'; // Import the Dish type
 
 export const ExplorePage = () => {
   const [country, setCountry] = useState('');
@@ -18,6 +19,9 @@ const [addCountry] = useMutation(ADD_COUNTRY);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCountry(event.target.value);
   };
+
+
+
 
   // Handle form submission
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -38,22 +42,17 @@ const [addCountry] = useMutation(ADD_COUNTRY);
     // Use the ADD_DISHES mutation
     // Pass the country ID and dish name as variables
     // Redirect to the SavedDishesPage
-  
-   
-
   // Handle saving the dish (to saved list or database)
-
-
     const handleAddToSaved = async () => {
       const countryInput = {
         countryName: country,
         notes: countryResponse?.countryByName?.notes,
-        
+
       };
     
       try {
         const { data } = await addCountry({
-          variables: { CountryInput: countryInput },  // Notice the use of `CountryInput` here
+          variables: { CountryInput: countryInput }, // Pass the country input object
         });
         console.log('Added country:', data.addCountry);
       } catch (err) {
@@ -88,7 +87,7 @@ const [addCountry] = useMutation(ADD_COUNTRY);
       {(countryResponse && countryResponse.countryByName) && (
         <div className="dish-info">
           <p><strong>Country: {countryResponse.countryByName?.countryName}</strong></p>
-          <p><strong>Dishes: {countryResponse.countryByName?.dishes.map((dish: any) => dish.dishName).join(', ')}</strong></p>
+          <p><strong>Dishes: {countryResponse.countryByName?.dishes.map((dish:Dish) => dish.dishName).join(', ')}</strong></p>
           <p><strong>Instructions:</strong> {countryResponse.countryByName?.notes}</p>
        
         </div>
