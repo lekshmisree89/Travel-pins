@@ -16,7 +16,7 @@ const AppNavbar = () => {
       <Navbar >
         <Container fluid>
           <Navbar.Brand as={Link} to='/'>
-          travel pins!!!
+          DishList
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='navbar' />
           <Navbar.Collapse id='navbar' className='d-flex flex-row-reverse'>
@@ -32,7 +32,7 @@ const AppNavbar = () => {
                 <>
                   <Nav.Link as={Link} to='/dishlist'>
                   
-                    saved dishes
+                    Saved Dishes
                   </Nav.Link>
                   <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                 </>
