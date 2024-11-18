@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
+import '../App.css';
 
 const Home = () => {
     const { loading, data, error } = useQuery(GET_ME);
