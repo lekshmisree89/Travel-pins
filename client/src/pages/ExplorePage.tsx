@@ -46,8 +46,9 @@ const [addCountry] = useMutation(ADD_COUNTRY);
 
     const handleAddToSaved = async () => {
       const countryInput = {
-        countryName: 'Spain',
-        notes: 'Famous for its cuisine',
+        countryName: country,
+        notes: countryResponse?.countryByName?.notes,
+        
       };
     
       try {
