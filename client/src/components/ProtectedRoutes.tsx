@@ -13,10 +13,10 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
         return (
             <div className="protected-route">
                 <div className="welcome-message">
-                    <h1>Welcome to Travel Pins</h1>
+                    <h1>Welcome to DishList</h1>
                     <p>
-                        Please log in to explore and add your travel journals. 
-                        Discover and share the best travel destinations around the world!
+                        Please log in to explore and add to your travel journals. 
+                        Discover and share your picks for the best local dishes around the world!
                     </p>
                 </div>
             </div>
