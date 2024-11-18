@@ -35,6 +35,11 @@ const router = createBrowserRouter([
         
         // Pass the required 'savedDishes' prop
       },
+
+      {
+        path:'/dishlist',
+        element:<ProtectedRoute><SavedDishesPage/></ProtectedRoute>
+      },
       
       {
         path: '/saved-dishes', // The path for saved dishes
