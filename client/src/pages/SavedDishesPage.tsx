@@ -1,36 +1,64 @@
-import { useEffect, useState } from 'react';
-
-interface Dish {
-  name: string;
-  ingredients: string[];
-  instructions: string;
-}
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_COUNTRIES } from '../utils/queries'; // Define this query to fetch saved countries
+import { DELETE_COUNTRY, DELETE_DISHES } from '../utils/mutations';
+import '../App.css';
 
 export const SavedDishesPage = () => {
-  const [savedDishes, setSavedDishes] = useState<Dish[]>([]);
+  // Fetch saved countries with their dishes
+  const { loading, error, data, refetch } = useQuery(GET_COUNTRIES);
 
-  useEffect(() => {
-    const storedDishes = localStorage.getItem('savedDishes');
-    if (storedDishes) {
-      setSavedDishes(JSON.parse(storedDishes));
+  // Mutations for deleting a country and dishes
+  const [deleteCountry] = useMutation(DELETE_COUNTRY);
+  const [deleteDishes] = useMutation(DELETE_DISHES);
+
+  // Handle removing a country
+  const handleDeleteCountry = async (countryId: string) => {
+    try {
+      await deleteCountry({ variables: { countryId } });
+      refetch(); // Refresh the list after deletion
+      console.log('Country removed successfully!');
+    } catch (err) {
+      console.error('Error deleting country:', err);
     }
-  }, []);
+  };
+
+  // Handle removing a dish from a country
+  const handleDeleteDish = async (countryId: string, dishId: string) => {
+    try {
+      await deleteDishes({ variables: { countryId, dishId } });
+      refetch(); // Refresh the list after deletion
+      console.log('Dish removed successfully!');
+    } catch (err) {
+      console.error('Error deleting dish:', err);
+    }
+  };
+
+  if (loading) return <p>Loading saved countries...</p>;
+  if (error) return <p>Error loading saved countries: {error.message}</p>;
 
   return (
     <div className="saved-dishes-container">
-      <h2>Saved Dishes</h2>
-      {savedDishes.length > 0 ? (
+      <h1>Saved Countries and Dishes</h1>
+      {data?.savedCountries?.length > 0 ? (
         <ul>
-          {savedDishes.map((dish, index) => (
-            <li key={index}>
-              <h3>{dish.name}</h3>
-              <p><strong>Ingredients:</strong> {dish.ingredients.join(', ')}</p>
-              <p><strong>Instructions:</strong> {dish.instructions}</p>
+          {data.savedCountries.map((country: any) => (
+            <li key={country._id}>
+              <h3>{country.name}</h3>
+              <p><strong>Notes:</strong> {country.notes}</p>
+              <button onClick={() => handleDeleteCountry(country._id)}>Delete Country</button>
+              <ul>
+                {country.dishes.map((dish: any) => (
+                  <li key={dish._id}>
+                    {dish.name}
+                    <button onClick={() => handleDeleteDish(country._id, dish._id)}>Delete Dish</button>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No saved dishes yet.</p>
+        <p>No saved countries or dishes found.</p>
       )}
     </div>
   );

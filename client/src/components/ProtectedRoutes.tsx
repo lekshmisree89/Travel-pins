@@ -20,9 +20,12 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
                     </p>
                 </div>
                 <div className="image-grid">
-                    <img src="../assets/travel 1.jpg" alt="Beautiful Beach" />
-                    <img src= "../assets/travel 1.jpg"alt="Mountain Range" />
-                    <img src="../assets/travel 1.jpg" alt="City Skyline" />
+
+                    <img src="../image.jpg" alt="Beach" />
+
+                    <img src= "../image2.jpeg" alt="Mountain" />
+
+                    <img src="../image3.jpg" alt="City" />
                 </div>
             </div>
         );
