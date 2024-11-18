@@ -28,3 +28,145 @@ h6 {
 .submit-button {
   padding: 8px 15px; /* Adjust button size */
 }
+
+
+.protected-route {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3818ba, #ce6868); /* Gradient background */
+  color: #fff; /* Ensure text is readable on gradient */
+}
+
+.welcome-message {
+  margin-bottom: 20px;
+}
+
+.welcome-message h1 {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.welcome-message p {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-top: 10px;
+  font-family: 'Rubik', sans-serif;
+}
+
+.image-grid {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.image-grid img {
+  width: 300px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.image-grid img:hover {
+  transform: scale(1.05);
+}
+
+/* Gradient background for the navbar */
+.navbar {
+  background: linear-gradient(90deg, #ff7e5f, #feb47b);
+  border-bottom: 2px solid #feb47b;
+  font-family: 'Arial', sans-serif;
+  padding: 10px 0;
+}
+
+.navbar-brand {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ffffff !important;
+}
+
+.navbar-brand:hover {
+  color: #ffe7d9 !important;
+}
+
+.navbar-nav .nav-link {
+  color: #ffffff !important;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffe7d9 !important;
+}
+
+/* Modal styles */
+.modal-content {
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background: #ff7e5f;
+  color: white;
+  border-bottom: none;
+}
+
+.modal-title .nav {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.modal-title .nav-link {
+  color: #ffffff !important;
+  margin: 0 10px;
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.modal-title .nav-link:hover {
+  color: #ffe7d9 !important;
+  transform: scale(1.05);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+/* Button for modal close */
+.btn-close {
+  color: #fff;
+  opacity: 0.8;
+}
+
+.btn-close:hover {
+  color: #ffe7d9;
+  opacity: 1;
+}
+
+/* Gradient background for the entire app */
+body {
+  background: linear-gradient(to bottom, #ff7e5f, #feb47b);
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+
+  .navbar-nav .nav-link {
+    font-size: 1rem;
+  }
+}
