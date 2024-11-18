@@ -8,7 +8,7 @@ export interface User extends mongoose.Document {
   username: string;
   email: string;
   password: string;
-  country: Schema.Types.ObjectId[];
+  countries: Schema.Types.ObjectId[];
   isCorrectPassword(password: string): Promise<boolean>;
  
 
@@ -31,7 +31,7 @@ const userSchema = new Schema<User>(
       type: String,
       required: true,
     },
-    country: [
+    countries: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Country',
