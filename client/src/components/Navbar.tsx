@@ -13,7 +13,7 @@ const AppNavbar = () => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
+      <Navbar >
         <Container fluid>
           <Navbar.Brand as={Link} to='/'>
           travel pins!!!
