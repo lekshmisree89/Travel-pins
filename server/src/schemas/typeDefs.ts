@@ -58,6 +58,7 @@ const typeDefs = `
     deleteCountry(countryId: ID!): Country
     addDishes(countryId: ID!, dishName: String!): Country
     deleteDishes(countryId: ID!, dishId: ID!): Country
+    addUserCountry(userId: ID!, countryId: ID!): User
   }
 `;
 
