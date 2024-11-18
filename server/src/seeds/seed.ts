@@ -10,8 +10,8 @@ const seedDatabase = async (): Promise<void> => {
     await db();
     await cleanDB();
 
-    await User.insertMany(userSeeds);
-    //add counrty in lower case
+    await User.insertMany(userSeeds);// 
+  
 
     await Country.insertMany(countrySeeds)
     // await Dishes.insertMany(dishSeeds);

@@ -3,6 +3,8 @@ import { FormEvent, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 //import { useNavigate } from 'react-router-dom';  // For navigation
 import { GET_COUNTRY_BY_NAME } from '../utils/queries';
+import { ADD_COUNTRY } from '../utils/mutations'; 
+import { useMutation } from '@apollo/client'; // Import the ADD_DISHES mutation
 
 export const ExplorePage = () => {
   const [country, setCountry] = useState('');
@@ -10,7 +12,8 @@ export const ExplorePage = () => {
   //const navigate = useNavigate(); // For navigation to SavedDishesPage
   const [fetchCountries, { loading: loadingCountries, data: countryResponse }] = useLazyQuery(GET_COUNTRY_BY_NAME);
 
-
+// Mutation for adding dishes to the saved list
+const [addCountry] = useMutation(ADD_COUNTRY);
   // Handle input change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCountry(event.target.value);
@@ -28,6 +31,41 @@ export const ExplorePage = () => {
       console.error(err);
     }
   };
+
+
+
+    // Add the country to the saved dishes
+    // Use the ADD_DISHES mutation
+    // Pass the country ID and dish name as variables
+    // Redirect to the SavedDishesPage
+  
+   
+
+  // Handle saving the dish (to saved list or database)
+
+
+    const handleAddToSaved = async () => {
+      const countryInput = {
+        countryName: country,
+        notes: countryResponse?.countryByName?.notes,
+        
+      };
+    
+      try {
+        const { data } = await addCountry({
+          variables: { CountryInput: countryInput },  // Notice the use of `CountryInput` here
+        });
+        console.log('Added country:', data.addCountry);
+      } catch (err) {
+        console.error('Error adding country:', err);
+      }
+    };
+    
+
+
+  
+
+
 
   return (
     <div className="form-container">
@@ -52,9 +90,10 @@ export const ExplorePage = () => {
           <p><strong>Country: {countryResponse.countryByName?.countryName}</strong></p>
           <p><strong>Dishes: {countryResponse.countryByName?.dishes.map((dish: any) => dish.dishName).join(', ')}</strong></p>
           <p><strong>Instructions:</strong> {countryResponse.countryByName?.notes}</p>
-          {/* <button className="save-dish-button" onClick={handleAddToSaved}>Add to Saved Dishes</button> */}
+       
         </div>
       )}
+      <button className="save-dish-button" onClick={handleAddToSaved}>Add to Saved Dishes</button> 
     </div>
   );
 };

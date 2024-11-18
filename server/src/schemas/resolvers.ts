@@ -99,6 +99,7 @@ export const resolvers = {
     // Add a new user
     addUser: async (_parent: any, args: AddUserArgs) => {
       const user = await User.create(args);
+      console.log('log: user', user);
       const token = signToken(user.username, user.email, user._id);
       return { token, user };
   },

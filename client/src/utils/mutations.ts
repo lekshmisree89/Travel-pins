@@ -30,13 +30,13 @@ export const ADD_USER = gql`
 `;
 
 export const ADD_COUNTRY = gql`
-  mutation addCountry($input: CountryInput!) {
-    addCountry(input: $input) {
-      _id
-      name
-      notes
-    }
+mutation addCountry($CountryInput: CountryInput!) {
+  addCountry(input:$CountryInput) {
+    _id
+    countryName
+    notes
   }
+}
 `;
 
    

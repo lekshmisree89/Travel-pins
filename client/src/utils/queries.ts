@@ -1,24 +1,14 @@
 import { gql } from '@apollo/client';
 
 export const GET_ME = gql`
-  query me {
-    me {
-      token
-      _id
-      username
-      email
-      countries {
-        _id
-        name
-        notes
-        dishes {
-          _id
-          name
-        }
-      }
-    }
+query me {
+  me {
+    _id
+    username
+    email
     
   }
+}
 `;
 
 export const GET_COUNTRIES = gql`
