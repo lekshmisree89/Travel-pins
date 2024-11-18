@@ -19,11 +19,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
                         Discover and share the best travel destinations around the world!
                     </p>
                 </div>
-                <div className="image-grid">
-                    <img src="../assets/travel 1.jpg" alt="Beautiful Beach" />
-                    <img src= "../assets/travel 1.jpg"alt="Mountain Range" />
-                    <img src="../assets/travel 1.jpg" alt="City Skyline" />
-                </div>
             </div>
         );
     }
