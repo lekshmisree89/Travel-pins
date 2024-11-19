@@ -3,7 +3,7 @@ import { FormEvent, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 //import { useNavigate } from 'react-router-dom';  // For navigation
 import { GET_COUNTRY_BY_NAME } from '../utils/queries';
-import { ADD_COUNTRY, ADD_USER_COUNTRY } from '../utils/mutations'; 
+import {  ADD_USER_COUNTRY } from '../utils/mutations'; 
 import { useMutation } from '@apollo/client'; // Import the ADD_DISHES mutation
 import { Dish } from '../models/Country'; // Import the Dish type
 import Auth from '../utils/auth';
@@ -49,7 +49,7 @@ export const ExplorePage = () => {
   console.log('Token:', token);
   const profile = Auth.getProfile();
   console.log('Full profile:', profile);
-  const userId = profile?.data?._id;
+  const userId = profile?.data?.id;
   console.log('User ID:', userId);
 
   const [addUserCountry] = useMutation(ADD_USER_COUNTRY);
@@ -128,6 +128,7 @@ export const ExplorePage = () => {
         </div>
       )}
       <button className="save-dish-button" onClick={handleAddToSaved}>Add to Saved Dishes</button> 
+     
     </div>
   );
 };
