@@ -40,33 +40,29 @@ h6 {
 }
 
 
-/* .protected-route {
-  height: 100%;
-  background-image: linear-gradient(rgba(0,0,0,0.6) rgba(0,0,0,0.6)), url(assets/image.jpg);
-  background-size: cover;
-  background-position: center;
-} */
-
 .welcome-message {
-  margin-bottom: 20px;
+  padding-top: 200px;
+  padding-left: 10px;
+  padding-bottom: 0px;
 }
 
 .welcome-message h1 {
-  font-size: 2.5rem;
+  font-size: 55px;
+  font-weight: bold;
   color: #fff;
 }
 
 .welcome-message p {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #fff;
   margin-top: 10px;
   font-family: 'Rubik', sans-serif;
+  padding-top: 20px;
 }
 
 
 /* Gradient background for the navbar */
 .navbar {
-  border-bottom: 2px solid white;
   font-family: 'Arial', sans-serif;
   padding: 10px 0;
 }
@@ -84,9 +80,14 @@ h6 {
 .navbar-nav .nav-link {
   color: #ffffff !important;
   margin: 0 10px;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: bold;
   transition: color 0.3s ease;
+  outline: none !important;
+  border: 2px solid white;
+  border-radius: 50px;
+  background: transparent;
+  padding: 8px, 0;
 }
 
 .navbar-nav .nav-link:hover {

@@ -54,7 +54,7 @@ const Login: React.FC<LoginProps> = () => {
             {data ? (
               <p>
                 Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
+                <Link to="/">Back to the Homepage.</Link>
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
