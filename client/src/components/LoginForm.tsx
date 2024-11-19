@@ -76,7 +76,7 @@ const Login: React.FC<LoginProps> = () => {
                 />
                 <button
                   className="btn btn-block btn-info"
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', margin: '10px', backgroundColor: '#3b6fc4', color: 'white', border: 'none' }}
                   type="submit"
                 >
                   Submit
