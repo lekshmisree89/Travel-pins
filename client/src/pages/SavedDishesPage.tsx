@@ -50,7 +50,7 @@ export const SavedDishesPage = () => {
             <CountryCard
               key={index}
               country={{
-                name: country.name,
+                countryName: country.countryName,
                 dishes: country.dishes
               }}
             />

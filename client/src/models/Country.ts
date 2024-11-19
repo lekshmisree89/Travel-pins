@@ -7,7 +7,7 @@ export interface Dish {
 
 export interface Country {
   id?: number;
-  name: string;
+  countryName: string;
   dishes: Dish[]; // Array of dish objects
   notes?: string; // Optional field for additional notes about the country
 }
