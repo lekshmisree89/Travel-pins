@@ -25,7 +25,7 @@ const Home = () => {
                                 <div>
                                   
                                     <p>{user.name}</p>
-                                    <h4>Welcome back, {user.username}! Explore and enjoy!</h4>
+                                    <h4 style={{color: 'white'}}>Welcome back, {user.username}! Explore and enjoy!</h4>
                                 </div>
                             ) : (
                                 <h4>You need to be logged in TO EXPLORE.</h4>
