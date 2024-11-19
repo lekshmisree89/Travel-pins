@@ -46,15 +46,15 @@ const Login: React.FC<LoginProps> = () => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
+    <main >
       <div className="col-12 col-lg-10">
         <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Login</h4>
+          <h4>Login</h4>
           <div className="card-body">
             {data ? (
               <p>
                 Success! You may now head{' '}
-                <Link to="/">back to the homepage.</Link>
+                <Link to="/">Back to the Homepage.</Link>
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
@@ -76,7 +76,7 @@ const Login: React.FC<LoginProps> = () => {
                 />
                 <button
                   className="btn btn-block btn-info"
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: 'pointer', margin: '10px', backgroundColor: '#3b6fc4', color: 'white', border: 'none' }}
                   type="submit"
                 >
                   Submit

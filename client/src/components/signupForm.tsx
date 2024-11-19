@@ -50,7 +50,7 @@ const SignupForm: React.FC<SignUpFormProps> = ({ handleModalClose }) => {
     <main className="flex-row justify-center mb-4">
       <div className="col-12 col-lg-10">
         <div className="card">
-          <h4 className="card-header">Sign Up</h4>
+          <h4 className="card-header" style={{border: 'none', boxShadow: 'none', background: 'transparent'}}>Sign Up</h4>
           <div className="card-body">
             <Form onSubmit={handleFormSubmit}>
               <Form.Group>
@@ -64,7 +64,7 @@ const SignupForm: React.FC<SignUpFormProps> = ({ handleModalClose }) => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label htmlFor="email">Email:</Form.Label>
+                <Form.Label htmlFor="email" style={{ paddingTop: '10px' }}>Email:</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Your email"
@@ -74,7 +74,7 @@ const SignupForm: React.FC<SignUpFormProps> = ({ handleModalClose }) => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label htmlFor="pwd">Password:</Form.Label>
+                <Form.Label htmlFor="pwd" style={{ paddingTop: '10px' }}>Password:</Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Your password"
@@ -84,7 +84,7 @@ const SignupForm: React.FC<SignUpFormProps> = ({ handleModalClose }) => {
                 />
               </Form.Group>
               <div className="flex-row justify-center">
-                <Button type="submit">Submit</Button>
+                <Button type="submit" style={{ cursor: 'pointer', margin: '10px'}}>Submit</Button>
               </div>
             </Form>
             {error && (

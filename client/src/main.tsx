@@ -6,6 +6,7 @@ import { SavedDishesPage } from './pages/SavedDishesPage'; // Create this page f
 import App from './App'; // Main app container
 import {ProtectedRoute}from './components/ProtectedRoutes'; // Correct path
 import Home from './pages/Home.tsx';
+import './App.css';
 
 // Define the router with paths and components
 const router = createBrowserRouter([

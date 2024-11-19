@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { GET_ME } from '../utils/queries';
+import '../App.css';
 
 const Home = () => {
     const { loading, data, error } = useQuery(GET_ME);
@@ -17,14 +18,14 @@ const Home = () => {
         <main>
             <div className="flex-row justify-center">
                 <div className="col-12 col-lg-10">
-                    <div className="card">
-                        <h4 className="card-header bg-dark text-light p-2">TRAVEL-PIN HOME</h4>
-                        <div className="card-body">
+                    <div className="hero">
+                        <h4 className="card-header"></h4>
+                        <div className="card-body" style={{color: 'black'}}>
                             {user ? (
                                 <div>
                                   
                                     <p>{user.name}</p>
-                                    <h4>Welcome back, {user.username}! Explore and enjoy!</h4>
+                                    <h4 className= 'welcome' style={{color: 'white'}}>Welcome back, {user.username}! Explore and enjoy!</h4>
                                 </div>
                             ) : (
                                 <h4>You need to be logged in TO EXPLORE.</h4>
