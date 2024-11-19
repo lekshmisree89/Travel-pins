@@ -127,9 +127,24 @@ h6 {
   padding: 20px;
 }
 
-.card {
-  border: none;
+.hero {
+  display: flex; /* Flexbox to manage content alignment */
+  align-items: top; /* Vertically center the text if needed */
+  justify-content: flex-start; /* Ensure content is left-aligned */
+  height: 100vh; /* Full screen height for the hero section */
+  padding: 20px; /* Add some space around the text */
+  /* background: linear-gradient(to bottom, #f3f4f6, #e2e8f0); Subtle gradient background */
+}
 
+.welcome {
+  font-size: 3rem; /* Large text size for emphasis */
+  font-weight: bold; /* Makes the text bold */
+  color: #1E3A8A; /* Professional dark blue color */
+  line-height: 1.5; /* Improves readability */
+  text-align: left; /* Aligns the text to the left */
+  max-width: 600px; /* Limits the text width for better aesthetics */
+  overflow-wrap: break-word; /* Ensures long words wrap properly */
+  margin-top: 150px;
 }
 
 .form-input {

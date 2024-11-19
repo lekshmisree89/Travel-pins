@@ -68,7 +68,7 @@ const [addCountry] = useMutation(ADD_COUNTRY);
 
   return (
     <div className="form-container">
-      <h3>Please use the search functionality to explore the local cuisine 
+      <h3>Please use the search functionality to explore the local cuisine <br></br> 
         of a country you visited</h3>
       <form onSubmit={handleSubmit}>
         <input
