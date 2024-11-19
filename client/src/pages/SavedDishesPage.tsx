@@ -6,14 +6,17 @@ import { Country } from '../models/Country';
 import { useMutation } from '@apollo/client';
 import { DELETE_COUNTRY} from '../utils/mutations';
 
+
 export const SavedDishesPage = () => {
 
 
 
 
   // Fetch user data
-  
+
   const { loading, error,data} = useQuery(GET_ME);
+
+
 
   const [deleteCountry] = useMutation(DELETE_COUNTRY, {
     refetchQueries: ['GET_ME'], // Refetch queries after deleting
@@ -36,6 +39,9 @@ export const SavedDishesPage = () => {
     try {
       const { data } = await deleteCountry({ variables: { countryId } });
       if (data?.deleteCountry) {
+
+     
+
         console.log(`Deleted country with ID: ${countryId}`);
       } else {
         console.error('Failed to delete country.');
@@ -57,6 +63,26 @@ export const SavedDishesPage = () => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   
 
   return (
