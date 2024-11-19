@@ -6,10 +6,10 @@ export interface Dish {
 }
 
 export interface Country {
-  id?: number;
+  countryId: number; // Keep countryId as number
   countryName: string;
   dishes: Dish[]; // Array of dish objects
   notes?: string; // Optional field for additional notes about the country
-  onDeleteCountry?: (countryId: string) => void;  // Optional function to delete a country
-  onDeleteDish?: (countryId: string, dishId: string) => void; // Optional function to delete a dish
+  onDeleteCountry?: (countryId: number) => void;  // Update to number here
+  onDeleteDish?: (countryId: number, dishId: number) => void; // Update to number here
 }
