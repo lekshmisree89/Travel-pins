@@ -47,6 +47,11 @@ interface RemoveDishesArgs {
   dishId: string;
 }
 
+interface AddUserCountryArgs {
+  userId: string;
+  countryId: string;
+}
+
 export const resolvers = {
   Query: {
     // users: async () => {
@@ -56,8 +61,7 @@ export const resolvers = {
     me: async (_parent: any, _args: unknown, context: Context) => {
       if (context.user) {
           const userData = await User.findOne({ _id: new mongoose.Types.ObjectId(context.user._id) }) // Cast _id to ObjectId
-              .select('-__v -password')
-              .populate('country');
+              .populate({path: 'countries', select: 'countryName dishes'});
 
         return userData;
       }
@@ -161,7 +165,27 @@ deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
     }
     throw AuthenticationError;
   },
+  // Add a country to user's list
+    // find a specific user
+    // update user's countries array with the countryId
+    // return the updated user
+  // Add a country to user's list
+    // find a specific user
+    // update user's countries array with the countryId
+    // return the updated user
+    addUserCountry: async (_parent: unknown, { userId, countryId }: AddUserCountryArgs, context: any) => {
+      if (context.user) {
+        return await User.findOneAndUpdate(
+          { _id: userId },
+          { $addToSet: { countries: countryId } }, //$push
+          { new: true, runValidators: true },
+        ).populate({path: 'countries', select: 'countryName dishes'});
+      
+      }
+      throw new AuthenticationError('You need to be logged in to perform this action');
+    },
 },
 };
+
 
 export default resolvers;
