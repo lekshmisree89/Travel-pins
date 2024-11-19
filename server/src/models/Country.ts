@@ -17,6 +17,7 @@ const dishSchema: Schema = new Schema<IDishes>({
 
 
 interface ICountry extends Document {
+  countryId: string;
   countryName: string;
   dishes: IDishes[];
   notes: string;

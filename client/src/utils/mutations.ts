@@ -60,7 +60,7 @@ export const DELETE_COUNTRY = gql`
   mutation deleteCountry($countryId: ID!) {
     deleteCountry(countryId: $countryId) {
       _id
-      name
+      countryName
     }
   }
 `;

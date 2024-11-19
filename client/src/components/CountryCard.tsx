@@ -1,17 +1,27 @@
+import '../styles/CountryCard.css';
 import { Country } from '../models/Country';
 
 interface CountryCardProps {
   country: Country;
-  onDelete: (Id:number) => void; // onDelete expects a function that takes a string
+  onDeleteCountry?: (countryName: string) => void;
 }
 
-export const CountryCard = ({ country, onDelete }: CountryCardProps) => {
+export const CountryCard = ({ country }: CountryCardProps) => {
+
+  const handleDeleteCountry = () => {
+    if (country.onDeleteCountry) {
+      country.onDeleteCountry(country.countryName);
+    }
+  };
+
   return (
     <div className="country-card">
       <div className="country-header">
         <h2>{country.countryName}</h2>
       </div>
-
+      <button onClick={handleDeleteCountry} className="delete-btn">
+          🗑 Delete Country
+        </button>
       <div className="dishes-section">
         <h3>🍽 Dishes</h3>
         <ul className="dishes-list">
@@ -22,9 +32,6 @@ export const CountryCard = ({ country, onDelete }: CountryCardProps) => {
           ))}
         </ul>
       </div>
-
-      <button onClick={() => onDelete(country.countryId)}>
-      Delete Country</button> {/* Pass the delete function */}
     </div>
   );
-};
+}; 

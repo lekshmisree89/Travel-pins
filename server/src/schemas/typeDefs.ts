@@ -12,8 +12,8 @@ const typeDefs = `
   }
 
   type Country {
-    _id: ID
-    countryName: String
+    _id: ID!
+    countryName: String!
     dishes: [Dishes]!
     notes: String
   }

@@ -4,8 +4,10 @@ export const GET_ME = gql`
 query Me {
   me {
     countries {
+      _id
       countryName
       dishes {
+        
         dishName
       }
     }
