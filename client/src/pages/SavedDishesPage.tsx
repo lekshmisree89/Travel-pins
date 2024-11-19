@@ -1,11 +1,15 @@
 import { useQuery, useMutation } from '@apollo/client';
 import { GET_COUNTRIES } from '../utils/queries'; // Define this query to fetch saved countries
 import { DELETE_COUNTRY, DELETE_DISHES } from '../utils/mutations';
+import { ADD_USER_COUNTRY } from '../utils/mutations';
 import '../App.css';
 
 export const SavedDishesPage = () => {
   // Fetch saved countries with their dishes
   const { loading, error, data, refetch } = useQuery(GET_COUNTRIES);
+
+// Add user country mutation
+const [addUserCountry] = useMutation(ADD_USER_COUNTRY);
 
   // Mutations for deleting a country and dishes
   const [deleteCountry] = useMutation(DELETE_COUNTRY);
