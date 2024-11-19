@@ -137,6 +137,53 @@ h6 {
   margin-right: 10px;
 }
 
+.form-container {
+  margin-top: 200px;
+  margin-left: 10px;
+  display: grid; 
+  gap: 1rem; /* Space between rows */
+  width: 80%;
+  
+}
+
+.form-container h3 {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.text-box {
+  width: 80%;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box;
+  
+}
+
+.submit-button {
+  padding: 8px 20px; /* Adjust button size */
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: lightgrey;
+}
+
+.save-dish-button {
+  padding: 8px 30px; /* Adjust button size */
+  width: 95%;
+  border-radius: 10px;
+  background-image: linear-gradient(#00bbff,#2e1f90);
+  color: white;
+}
+
+.dish-info {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+}
+
+
+
 /* Button for modal close */
 .btn-close {
   color: #fff;

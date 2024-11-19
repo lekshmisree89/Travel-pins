@@ -19,13 +19,13 @@ const Home = () => {
             <div className="flex-row justify-center">
                 <div className="col-12 col-lg-10">
                     <div className="card">
-                        <h4 className="card-header bg-dark text-light p-2">DISHLIST HOME</h4>
-                        <div className="card-body">
+                        <h4 className="card-header">DISHLIST HOME</h4>
+                        <div className="card-body" style={{color: 'black'}}>
                             {user ? (
                                 <div>
                                   
                                     <p>{user.name}</p>
-                                    <h4 style={{color: 'white'}}>Welcome back, {user.username}! Explore and enjoy!</h4>
+                                    <h4 style={{color: 'black'}}>Welcome back, {user.username}! Explore and enjoy!</h4>
                                 </div>
                             ) : (
                                 <h4>You need to be logged in TO EXPLORE.</h4>
