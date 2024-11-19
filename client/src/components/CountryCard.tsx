@@ -3,6 +3,7 @@ import { Country } from '../models/Country';
 
 interface CountryCardProps {
   country: Country;
+  onDelete: () => void;// fn is used to handle delete
 }
 
 export const CountryCard = ({ country }: CountryCardProps) => {
@@ -22,6 +23,9 @@ export const CountryCard = ({ country }: CountryCardProps) => {
           ))}
         </ul>
       </div>
+      <button className="delete-btn" onClick={onDelete}>
+        Delete Country
+      </button>
     </div>
   );
 }; 

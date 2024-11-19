@@ -3,25 +3,47 @@ import { GET_ME } from '../utils/queries';
 import '../App.css';
 import { CountryCard } from '../components/CountryCard';
 import { Country } from '../models/Country';
-//import { useMutation } from '@apollo/client';
-//import { DELETE_COUNTRY, DELETE_DISHES } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+import { DELETE_COUNTRY, DELETE_DISHES } from '../utils/mutations';
 
 export const SavedDishesPage = () => {
   // Fetch user data
   const { loading, error,data} = useQuery(GET_ME);
-  if (loading) return <p>Loading saved countries...</p>;
-  if (error) return <p>Error loading saved countries: {error.message}</p>;
 
-  const countries = data?.me?.countries || [];
 
+  
+
+  const [deleteCountry] = useMutation(DELETE_COUNTRY);
+
+  // Handle country deletion
+  const handleDeleteCountry = (countryId: string) => {
+    deleteCountry({
+      variables: { countryId },  // Pass the countryId to the mutation
+      update: (cache) => {
+        // Update the cache to remove the deleted country from the list
+        const existingCountries = cache.readQuery({ query: GET_ME });
+        const newCountries = existingCountries?.me?.countries.filter((country: Country) => country._id !== countryId);
+        
+        cache.writeQuery({
+          query: GET_ME,
+          data: {
+            me: {
+              ...existingCountries?.me,
+              countries: newCountries,
+            },
+          },
+        });
+      },
+    });
+  };
 
   // // Add user country mutation
   // const [addUserCountry] = useMutation(ADD_USER_COUNTRY);
+  if (loading) return <p>Loading saved countries...</p>;
+  if (error) return <p>Error loading saved countries: {error.message}</p>;
 
- 
 
-
-
+  const countries = data?.me?.countries || [];
 
 
 
