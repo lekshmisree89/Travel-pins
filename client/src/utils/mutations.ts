@@ -89,3 +89,17 @@ export const UPDATE_COUNTRY = gql`
     }
   }
 `;
+
+export const ADD_USER_COUNTRY = gql`
+mutation AddCountry($userId: ID!, $countryId: ID!) {
+  addUserCountry(userId: $userId, countryId: $countryId) {
+    countries {
+      countryName
+      dishes {
+        dishName
+      }
+    }
+    username
+  }
+}
+`;
