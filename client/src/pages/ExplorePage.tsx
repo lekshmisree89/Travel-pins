@@ -68,7 +68,8 @@ const [addCountry] = useMutation(ADD_COUNTRY);
 
   return (
     <div className="form-container">
-      <h3>Please use the search functionality to explore the local cuisine of a country you visited</h3>
+      <h3>Please use the search functionality to explore the local cuisine 
+        of a country you visited</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -87,9 +88,9 @@ const [addCountry] = useMutation(ADD_COUNTRY);
 
       {(countryResponse && countryResponse.countryByName) && (
         <div className="dish-info">
-          <p><strong>Country: {countryResponse.countryByName?.countryName}</strong></p>
+          <h2><strong>Country: {countryResponse.countryByName?.countryName}</strong></h2>
           <p><strong>Dishes: {countryResponse.countryByName?.dishes.map((dish:Dish) => dish.dishName).join(', ')}</strong></p>
-          <p><strong>Instructions:</strong> {countryResponse.countryByName?.notes}</p>
+          <p><strong>Notes:</strong> {countryResponse.countryByName?.notes}</p>
        
         </div>
       )}
