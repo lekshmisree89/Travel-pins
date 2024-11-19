@@ -6,6 +6,7 @@ query Me {
     countries {
       _id
       countryName
+    
       dishes {
         
         dishName

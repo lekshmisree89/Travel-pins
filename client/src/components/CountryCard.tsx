@@ -3,25 +3,24 @@ import { Country } from '../models/Country';
 
 interface CountryCardProps {
   country: Country;
-  onDeleteCountry?: (countryName: string) => void;
+  
+  onDeleteCountry?: (countryId: any) => void;
 }
 
-export const CountryCard = ({ country }: CountryCardProps) => {
-
-  const handleDeleteCountry = () => {
-    if (country.onDeleteCountry) {
-      country.onDeleteCountry(country.countryName);
-    }
-  };
-
+export const CountryCard = ({ country, onDeleteCountry }: CountryCardProps) => {
   return (
     <div className="country-card">
       <div className="country-header">
         <h2>{country.countryName}</h2>
+        {onDeleteCountry && (
+          <button
+            className="delete-button"
+            onClick={() => onDeleteCountry(country._id)}
+          >
+            🗑 Delete
+          </button>
+        )}
       </div>
-      <button onClick={handleDeleteCountry} className="delete-btn">
-          🗑 Delete Country
-        </button>
       <div className="dishes-section">
         <h3>🍽 Dishes</h3>
         <ul className="dishes-list">
@@ -34,4 +33,4 @@ export const CountryCard = ({ country }: CountryCardProps) => {
       </div>
     </div>
   );
-}; 
+};
