@@ -49,7 +49,7 @@ export const ExplorePage = () => {
   console.log('Token:', token);
   const profile = Auth.getProfile();
   console.log('Full profile:', profile);
-  const userId = profile?.data?.id;
+  const userId = profile?.data?._id;
   console.log('User ID:', userId);
 
   const [addUserCountry] = useMutation(ADD_USER_COUNTRY);
