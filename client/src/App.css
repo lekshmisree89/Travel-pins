@@ -1,5 +1,15 @@
+*
+{
+  padding: 0;
+  margin: 0;
+}
+
 body {
   font-family: 'Rubik', sans-serif;
+  height: 100%;
+  background-image: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), url(assets/image.jpg);
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 h1,
@@ -30,58 +40,29 @@ h6 {
 }
 
 
-.protected-route {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-  min-height: 100vh;
-  background: linear-gradient(135deg, #3818ba, #ce6868); /* Gradient background */
-  color: #fff; /* Ensure text is readable on gradient */
-}
-
 .welcome-message {
-  margin-bottom: 20px;
+  padding-top: 200px;
+  padding-left: 10px;
+  padding-bottom: 0px;
 }
 
 .welcome-message h1 {
-  font-size: 2.5rem;
+  font-size: 55px;
+  font-weight: bold;
   color: #fff;
 }
 
 .welcome-message p {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: #fff;
   margin-top: 10px;
   font-family: 'Rubik', sans-serif;
+  padding-top: 20px;
 }
 
-.image-grid {
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-
-}
-
-.image-grid img {
-  width: 300px;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.image-grid img:hover {
-  transform: scale(1.05);
-}
 
 /* Gradient background for the navbar */
 .navbar {
-  background: linear-gradient(90deg, #ff7e5f, #feb47b);
-  border-bottom: 2px solid #feb47b;
   font-family: 'Arial', sans-serif;
   padding: 10px 0;
 }
@@ -99,8 +80,14 @@ h6 {
 .navbar-nav .nav-link {
   color: #ffffff !important;
   margin: 0 10px;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
   transition: color 0.3s ease;
+  outline: none !important;
+  border: 2px solid white;
+  border-radius: 50px;
+  background: transparent;
+  padding: 8px, 0;
 }
 
 .navbar-nav .nav-link:hover {
@@ -109,15 +96,15 @@ h6 {
 
 /* Modal styles */
 .modal-content {
-  border-radius: 10px;
+  border-radius: 20px;
   border: none;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .modal-header {
-  background: #ff7e5f;
+  background: linear-gradient(to right, #1E3A8A, #3B82F6, #93C5FD);
   color: white;
   border-bottom: none;
+  border-radius: 20px 20px 0 0;
 }
 
 .modal-title .nav {
@@ -140,6 +127,100 @@ h6 {
   padding: 20px;
 }
 
+.hero {
+  display: flex; /* Flexbox to manage content alignment */
+  align-items: top; /* Vertically center the text if needed */
+  justify-content: flex-start; /* Ensure content is left-aligned */
+  height: 100vh; /* Full screen height for the hero section */
+  padding: 20px; /* Add some space around the text */
+  /* background: linear-gradient(to bottom, #f3f4f6, #e2e8f0); Subtle gradient background */
+}
+
+.welcome {
+  font-size: 3rem; /* Large text size for emphasis */
+  font-weight: bold; /* Makes the text bold */
+  color: #1E3A8A; /* Professional dark blue color */
+  line-height: 1.5; /* Improves readability */
+  text-align: left; /* Aligns the text to the left */
+  max-width: 600px; /* Limits the text width for better aesthetics */
+  overflow-wrap: break-word; /* Ensures long words wrap properly */
+  margin-top: 150px;
+}
+
+.form-input {
+  column-gap: 2rem;
+  margin-right: 10px;
+}
+
+.form-container {
+  margin-top: 200px;
+  margin-left: 10px;
+  display: grid; 
+  gap: 1rem; /* Space between rows */
+  width: 80%;
+  
+}
+
+.form-container h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  word-wrap: break-word; /* Wrap long words */
+  overflow-wrap: break-word; /* Modern property */
+  white-space: normal; /* Allows normal wrapping */
+}
+
+.text-box {
+  width: 50%;
+  padding: 8px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  box-sizing: border-box;
+  
+}
+
+.submit-button {
+  padding: 8px 20px; /* Adjust button size */
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: lightgrey;
+}
+
+.save-dish-button {
+  padding: 8px 30px; /* Adjust button size */
+  width: 50%;
+  border-radius: 10px;
+  background-image: linear-gradient(#00bbff,#2e1f90);
+  color: white;
+}
+
+.dish-info {
+  width: 100%;
+  max-width: 580px; /* Limits the card's width for responsiveness */
+  margin: 5px ; /* Center the card horizontally */
+  padding: 20px; /* Adds inner spacing */
+  background: linear-gradient(135deg, #ffffff, #f3f4f6); /* Stylish gradient */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.08); /* Subtle shadow */
+  font-family: 'Arial', sans-serif; /* Professional font */
+  color: #333; /* Neutral text color */
+  line-height: 1.5; /* Improves text readability */
+}
+
+.dish-info h2 {
+  margin-top: 0; /* Removes default margin from the top */
+  margin-bottom: 10px; /* Adds spacing below the title */
+  font-size: 1.5rem; /* Makes the title prominent */
+  color: #1e3a8a; /* Dark blue for title */
+}
+
+.dish-info p {
+  margin-bottom: 10px; /* Adds spacing below each paragraph */
+  font-size: 1rem;
+}
+
+
+
 /* Button for modal close */
 .btn-close {
   color: #fff;
@@ -151,14 +232,7 @@ h6 {
   opacity: 1;
 }
 
-/* Gradient background for the entire app */
-body {
-  background: linear-gradient(to bottom, #ff7e5f, #feb47b);
-  color: #333;
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
