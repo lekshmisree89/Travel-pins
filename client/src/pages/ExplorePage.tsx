@@ -3,9 +3,10 @@ import { FormEvent, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 //import { useNavigate } from 'react-router-dom';  // For navigation
 import { GET_COUNTRY_BY_NAME } from '../utils/queries';
-import { ADD_COUNTRY } from '../utils/mutations'; 
+import { ADD_COUNTRY, ADD_USER_COUNTRY } from '../utils/mutations'; 
 import { useMutation } from '@apollo/client'; // Import the ADD_DISHES mutation
 import { Dish } from '../models/Country'; // Import the Dish type
+import Auth from '../utils/auth';
 
 export const ExplorePage = () => {
   const [country, setCountry] = useState('');
@@ -14,7 +15,7 @@ export const ExplorePage = () => {
   const [fetchCountries, { loading: loadingCountries, data: countryResponse }] = useLazyQuery(GET_COUNTRY_BY_NAME);
 
 // Mutation for adding dishes to the saved list
-const [addCountry] = useMutation(ADD_COUNTRY);
+// const [addCountry] = useMutation(ADD_COUNTRY);
   // Handle input change
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCountry(event.target.value);
@@ -43,22 +44,54 @@ const [addCountry] = useMutation(ADD_COUNTRY);
     // Pass the country ID and dish name as variables
     // Redirect to the SavedDishesPage
   // Handle saving the dish (to saved list or database)
-    const handleAddToSaved = async () => {
-      const countryInput = {
-        countryName: country,
-        notes: countryResponse?.countryByName?.notes,
+   // Get the current user's ID from the token
+  const token = Auth.getToken();
+  console.log('Token:', token);
+  const profile = Auth.getProfile();
+  console.log('Full profile:', profile);
+  const userId = profile?.data?._id;
+  console.log('User ID:', userId);
 
-      };
-    
-      try {
-        const { data } = await addCountry({
-          variables: { CountryInput: countryInput }, // Pass the country input object
-        });
-        console.log('Added country:', data.addCountry);
-      } catch (err) {
-        console.error('Error adding country:', err);
+  const [addUserCountry] = useMutation(ADD_USER_COUNTRY);
+
+  const handleAddToSaved = async () => {
+    if (!Auth.loggedIn()) {
+      setError('Please log in to save countries');
+      return;
+    }
+
+    if (!userId) {
+      setError('Unable to get user profile');
+      return;
+    }
+
+    try {
+      // First fetch the country data
+      const countryResult = await fetchCountries({ 
+        variables: { countryName: country } 
+      });
+      
+      console.log('Country result:', countryResult);  // Debug log
+      
+      if (!countryResult.data?.countryByName?._id) {
+        setError('Could not find country data');
+        return;
       }
-    };
+
+      // Then add it to user's saved countries
+      const { data } = await addUserCountry({
+        variables: { 
+          userId: userId,
+          countryId: countryResult.data.countryByName._id
+        }
+      });
+      console.log('Added country to user:', data);
+    } catch (err) {
+      console.error('Error adding country:', err);
+      setError('Failed to save country');
+    }
+  };
+
     
 
 
