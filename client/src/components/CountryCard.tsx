@@ -5,6 +5,7 @@ interface CountryCardProps {
   country: Country;
   
   onDeleteCountry?: (countryId: any) => void;
+  onDeleteDish?: (countryId: any, dishId: any) => void;
 }
 
 export const CountryCard = ({ country, onDeleteCountry }: CountryCardProps) => {
@@ -30,6 +31,8 @@ export const CountryCard = ({ country, onDeleteCountry }: CountryCardProps) => {
             </li>
           ))}
         </ul>
+        <button className="del-dish-button">Delete Dish</button>
+        
       </div>
     </div>
   );

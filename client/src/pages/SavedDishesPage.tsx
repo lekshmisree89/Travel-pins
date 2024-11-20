@@ -3,8 +3,9 @@ import { GET_ME } from '../utils/queries';
 import '../App.css';
 import { CountryCard } from '../components/CountryCard';
 import { Country } from '../models/Country';
+import { Dish } from '../models/Country';
 import { useMutation } from '@apollo/client';
-import { DELETE_COUNTRY} from '../utils/mutations';
+import { DELETE_COUNTRY, DELETE_DISHES } from '../utils/mutations';
 
 
 export const SavedDishesPage = () => {
@@ -23,6 +24,11 @@ export const SavedDishesPage = () => {
     awaitRefetchQueries: true,
   });
   
+  const [deleteDishes] = useMutation(DELETE_DISHES, {
+    refetchQueries: ['GET_ME'], // Refetch queries after deleting
+    awaitRefetchQueries: true,
+  });
+
 
   if (loading) return <p>Loading saved countries...</p>;
   if (error) return <p>Error loading saved countries: {error.message}</p>;
@@ -52,6 +58,19 @@ export const SavedDishesPage = () => {
   };
 
  
+const handleDeleteDish = async ( dishId: number) => {
+
+  try {
+    const { data } = await deleteDishes({ variables: { dishId } });
+    if (data?.deleteDishes) {
+      console.log(`Deleted dish with ID: ${dishId}`);
+    } else {
+      console.error('Failed to delete dish.');
+    }
+  } catch (err) {
+    console.error('Error deleting dish:', err);
+  }
+}
 
 
 
@@ -95,6 +114,8 @@ export const SavedDishesPage = () => {
               key={index}
               country={country}
               onDeleteCountry={()=> handleDeleteCountry(country?._id)}
+              onDeleteDish={() => handleDeleteDish(country?.dishes[0]?.id)}
+
             />
           ))}
         </div>
