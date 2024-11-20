@@ -29,41 +29,18 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_COUNTRY = gql`
-mutation addCountry($CountryInput: CountryInput!) {
-  addCountry(input:$CountryInput) {
-    _id
-    countryName
-    notes
-  }
-}
-`;
 
-   
-     
-// Add Dish Mutation
-export const ADD_DISHES = gql`
-  mutation addDishes($countryId: ID!, $name: String!) {
-    addDishes(countryId: $countryId, name: $name) {
-      _id
-      name
-      dishes {
-        _id
-        name
-      }
-    }
-  }
-`;
 
 // Delete Country Mutation
 export const DELETE_COUNTRY = gql`
   mutation deleteCountry($countryId: ID!) {
     deleteCountry(countryId: $countryId) {
       _id
-      name
+      countryName
     }
   }
 `;
+
 
 // Delete Dish Mutation
 export const DELETE_DISHES = gql`

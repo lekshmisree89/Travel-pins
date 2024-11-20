@@ -15,8 +15,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
                 <div className="welcome-message">
                     <h1>Welcome to DishList</h1>
                     <p>
-                        Please log in to explore and add to your travel journals. 
-                        Discover and share your picks for the best local dishes around the world!
+                    Welcome to DishList – your wishlist for exploring and saving the flavors of the world.
+Dive into our Explore page to search for dishes by country, save your favorites, and build your personal collection of must-try meals.
+Our dishes were thoughtfully selected UNESCO-recognized intangible cultural heritage foods or a country's own national dish, showcasing the authentic culinary identity of our world. 
                     </p>
                 </div>
             </div>
