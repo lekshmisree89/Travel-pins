@@ -106,7 +106,7 @@ const handleDeleteDish = async ( dishId: number) => {
 
   return (
     <div className="saved-dishes-container">
-      <h1>My Countries</h1>
+      <h1 style={{color: 'white', fontWeight: 'bold'}}>My Countries</h1>
       {countries.length > 0 ? (
         <div className="countries-grid">
           {countries.map((country: Country, index: number) => (
