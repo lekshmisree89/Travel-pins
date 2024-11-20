@@ -120,7 +120,7 @@ const handleDeleteDish = async ( dishId: number) => {
           ))}
         </div>
       ) : (
-        <p className="empty-state">Start your culinary journey by adding some countries!</p>
+        <p className="empty-state" style={{color: 'white'}}>Start your culinary journey by adding some countries!</p>
       )}
     </div>
   );
