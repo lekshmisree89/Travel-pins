@@ -6,29 +6,32 @@ import { Country } from '../models/Country';
 //import { Dish } from '../models/Country';
 import { useMutation } from '@apollo/client';
 import { DELETE_COUNTRY, DELETE_DISHES } from '../utils/mutations';
+import { useEffect, useState } from 'react';
 
 
 export const SavedDishesPage = () => {
+  const [refresh, setRefresh] = useState(false);
+  
+  const { loading, error, data, refetch } = useQuery(GET_ME);
 
-
-
-
-  // Fetch user data
-
-  const { loading, error,data} = useQuery(GET_ME);
-
-
+  useEffect(() => {
+    if (refresh) {
+      refetch();
+      setRefresh(false);
+    }
+  }, [refresh, refetch]);
 
   const [deleteCountry] = useMutation(DELETE_COUNTRY, {
-    refetchQueries: ['GET_ME'], // Refetch queries after deleting
+    onCompleted: () => setRefresh(true),
+    refetchQueries: ['GET_ME'],
     awaitRefetchQueries: true,
   });
   
   const [deleteDishes] = useMutation(DELETE_DISHES, {
-    refetchQueries: ['GET_ME'], // Refetch queries after deleting
+    onCompleted: () => setRefresh(true),
+    refetchQueries: ['GET_ME'],
     awaitRefetchQueries: true,
   });
-
 
   if (loading) return <p>Loading saved countries...</p>;
   if (error) return <p>Error loading saved countries: {error.message}</p>;
