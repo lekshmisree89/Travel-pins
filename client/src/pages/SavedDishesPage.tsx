@@ -118,7 +118,7 @@ export const SavedDishesPage = () => {
 
   return (
     <div className="saved-dishes-container">
-      <h1>My Countries</h1>
+      <h1 style={{color: 'white', fontWeight: 'bold'}}>My Countries</h1>
       {countries.length > 0 ? (
         <div className="countries-grid">
           {countries.map((country: Country, index: number) => (
@@ -133,7 +133,7 @@ export const SavedDishesPage = () => {
           ))}
         </div>
       ) : (
-        <p className="empty-state">Start your culinary journey by adding some countries!</p>
+        <p className="empty-state" style={{color: 'white'}}>Start your culinary journey by adding some countries!</p>
       )}
     </div>
   );
