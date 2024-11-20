@@ -5,14 +5,20 @@ import { CountryCard } from '../components/CountryCard';
 import { Country } from '../models/Country';
 //import { Dish } from '../models/Country';
 import { useMutation } from '@apollo/client';
-import { DELETE_COUNTRY, DELETE_DISHES } from '../utils/mutations';
+import { DELETE_USER_COUNTRY} from '../utils/mutations';
 import { useEffect, useState } from 'react';
+import Auth from '../utils/auth';
+
 
 
 export const SavedDishesPage = () => {
   const [refresh, setRefresh] = useState(false);
-  
   const { loading, error, data, refetch } = useQuery(GET_ME);
+  const [deleteUserCountry] = useMutation(DELETE_USER_COUNTRY, {
+    onCompleted: () => setRefresh(true),
+    refetchQueries: ['GET_ME'],
+    awaitRefetchQueries: true,
+  });
 
   useEffect(() => {
     if (refresh) {
@@ -20,18 +26,6 @@ export const SavedDishesPage = () => {
       setRefresh(false);
     }
   }, [refresh, refetch]);
-
-  const [deleteCountry] = useMutation(DELETE_COUNTRY, {
-    onCompleted: () => setRefresh(true),
-    refetchQueries: ['GET_ME'],
-    awaitRefetchQueries: true,
-  });
-  
-  const [deleteDishes] = useMutation(DELETE_DISHES, {
-    onCompleted: () => setRefresh(true),
-    refetchQueries: ['GET_ME'],
-    awaitRefetchQueries: true,
-  });
 
   if (loading) return <p>Loading saved countries...</p>;
   if (error) return <p>Error loading saved countries: {error.message}</p>;
@@ -42,18 +36,33 @@ export const SavedDishesPage = () => {
   console.log('log: countries', countries);
 
 
-  // // Add user country mutation
-  // const [addUserCountry] = useMutation(ADD_USER_COUNTRY);
-  const handleDeleteCountry = async (countryId: number) => {
-    try {
-      const { data } = await deleteCountry({ variables: { countryId } });
-      if (data?.deleteCountry) {
+  const handleDeleteCountry = async (countryId: string) => {
+    if (!Auth.loggedIn()) {
+      console.error('Please log in to delete countries');
+      return;
+    }
 
-     
+    const profile = Auth.getProfile();
+    const userId = profile?.data?._id;
+    console.log('User ID:', userId);
 
-        console.log(`Deleted country with ID: ${countryId}`);
+    if (!userId) {
+      console.error('Unable to get user profile');
+      return;
+    }
+
+    try {      
+      const { data } = await deleteUserCountry({
+        variables: { 
+          userId: userId,
+          countryId: countryId
+        }
+      });
+      
+      if (data?.deleteUserCountry) {
+        console.log(`Successfully deleted country with ID: ${countryId}`);
       } else {
-        console.error('Failed to delete country.');
+        console.error('Failed to delete country');
       }
     } catch (err) {
       console.error('Error deleting country:', err);
@@ -61,19 +70,19 @@ export const SavedDishesPage = () => {
   };
 
  
-const handleDeleteDish = async ( dishId: number) => {
+// const handleDeleteDish = async ( dishId: number) => {
 
-  try {
-    const { data } = await deleteDishes({ variables: { dishId } });
-    if (data?.deleteDishes) {
-      console.log(`Deleted dish with ID: ${dishId}`);
-    } else {
-      console.error('Failed to delete dish.');
-    }
-  } catch (err) {
-    console.error('Error deleting dish:', err);
-  }
-}
+//   try {
+//     const { data } = await deleteDishes({ variables: { dishId } });
+//     if (data?.deleteDishes) {
+//       console.log(`Deleted dish with ID: ${dishId}`);
+//     } else {
+//       console.error('Failed to delete dish.');
+//     }
+//   } catch (err) {
+//     console.error('Error deleting dish:', err);
+//   }
+// }
 
 
 
@@ -116,9 +125,10 @@ const handleDeleteDish = async ( dishId: number) => {
             <CountryCard
               key={index}
               country={country}
-              onDeleteCountry={()=> handleDeleteCountry(country?._id)}
-              onDeleteDish={() => handleDeleteDish(country?.dishes[0]?.id)}
-
+              onDeleteCountry={(countryId) => {
+                console.log('Delete button clicked for country:', countryId);
+                handleDeleteCountry(countryId);
+              }}
             />
           ))}
         </div>

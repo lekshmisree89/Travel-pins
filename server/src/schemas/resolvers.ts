@@ -52,6 +52,11 @@ interface AddUserCountryArgs {
   countryId: string;
 }
 
+interface DeleteUserCountryArgs {
+  userId: string;
+  countryId: string;
+}
+
 export const resolvers = {
   Query: {
     // users: async () => {
@@ -181,6 +186,16 @@ deleteCountry: async (_: any, { countryId }: CountryArgs, context: any) => {
           { new: true, runValidators: true },
         ).populate({path: 'countries', select: 'countryName dishes'});
       
+      }
+      throw new AuthenticationError('You need to be logged in to perform this action');
+    },
+    deleteUserCountry: async (_parent: unknown, { userId, countryId }: DeleteUserCountryArgs, context: any) => {
+      if (context.user) {
+        return await User.findOneAndUpdate(
+          { _id: userId },
+          { $pull: { countries: countryId } },
+          { new: true, runValidators: true }
+        ).populate({path: 'countries', select: 'countryName dishes'});
       }
       throw new AuthenticationError('You need to be logged in to perform this action');
     },

@@ -128,7 +128,6 @@ export const ExplorePage = () => {
         </div>
       )}
       <button className="save-dish-button" onClick={handleAddToSaved}>Add to Saved Dishes</button> 
-     
     </div>
   );
 };
