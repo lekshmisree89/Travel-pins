@@ -80,3 +80,17 @@ mutation AddCountry($userId: ID!, $countryId: ID!) {
   }
 }
 `;
+
+export const DELETE_USER_COUNTRY = gql`
+mutation DeleteUserCountry($userId: ID!, $countryId: ID!) {
+  deleteUserCountry(userId: $userId, countryId: $countryId) {
+    countries {
+      countryName
+      dishes {
+        dishName
+      }
+    }
+    username
+  }
+}
+`;
