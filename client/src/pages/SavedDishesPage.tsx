@@ -3,7 +3,7 @@ import { GET_ME } from '../utils/queries';
 import '../App.css';
 import { CountryCard } from '../components/CountryCard';
 import { Country } from '../models/Country';
-import { Dish } from '../models/Country';
+//import { Dish } from '../models/Country';
 import { useMutation } from '@apollo/client';
 import { DELETE_COUNTRY, DELETE_DISHES } from '../utils/mutations';
 
